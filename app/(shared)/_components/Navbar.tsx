@@ -49,7 +49,7 @@ const Navbar = () => {
             className={buttonVariants({
               variant: "default",
               className:
-                "!rounded-full hover:bg-primary/90 text-lg lg:text-[17px] w-[150px] lg:w-[200px] h-10 md:h-11 !font-bold ",
+                "!rounded-full text-lg lg:text-[17px] w-[150px] lg:w-[200px] h-10 md:h-11 !font-bold ",
               size: "lg",
             })}
           >

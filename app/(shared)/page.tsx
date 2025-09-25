@@ -1,10 +1,11 @@
 import { buttonVariants } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 
 const Home = () => {
   return (
-    <section className="relative">
+    <section className="relative ">
       <Image
         src="/bgImg.jpg"
         alt="logo"
@@ -12,11 +13,16 @@ const Home = () => {
         className="w-full h-screen brightness-100 object-cover "
         height={50}
       />
+      {/* Overlay */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
-      bg-background opacity-10 dark:opacity-80 w-full h-full"
+        className="absolute inset-0 
+      bg-background opacity-10 dark:opacity-80 w-full h-full "
       />
-      <div className="absolute z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center space-y-10">
+      {/* content */}
+      <div
+        className="absolute  inset-0 flex flex-col items-center justify-center text-center 
+      space-y-10 "
+      >
         <div>
           <h1 className="text-4xl md:text-6xl font-bold text-primary-foreground mb-4">
             Welcome to Our Learning Platform
@@ -27,14 +33,51 @@ const Home = () => {
         </div>
         <Link
           className={buttonVariants({
+            variant: "default",
             size: "lg",
-            className: "!rounded-full w-[190px] !text-[16px] !font-semibold",
+            className:
+              "!rounded-full w-[190px] h-10 !text-[16px] !font-semibold hover:bg-primary/90",
           })}
           href="/courses"
         >
-          View All Courses
+          VIEW ALL COURSES
         </Link>
       </div>
+      {/* <div className="flex gap-7 bottom-10 absolute">
+        <Card className="w-[300px] md:w-[350px] lg:w-[400px] bg-background/70 backdrop-blur-sm border-2 border-primary/20">
+          <CardHeader>
+            <CardTitle>
+              New Courses Coming Soon! Stay Tuned for Exciting Updates.
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            We are constantly adding new courses to our platform. Check back
+            regularly to explore the latest offerings and expand your knowledge!
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>
+              New Courses Coming Soon! Stay Tuned for Exciting Updates.
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            We are constantly adding new courses to our platform. Check back
+            regularly to explore the latest offerings and expand your knowledge!
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>
+              New Courses Coming Soon! Stay Tuned for Exciting Updates.
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            We are constantly adding new courses to our platform. Check back
+            regularly to explore the latest offerings and expand your knowledge!
+          </CardContent>
+        </Card>
+      </div> */}
     </section>
   );
 };
