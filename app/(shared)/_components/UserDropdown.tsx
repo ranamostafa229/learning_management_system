@@ -1,12 +1,10 @@
+"use client";
 import {
-  BoltIcon,
   BookOpen,
   ChevronDownIcon,
   Home,
   LayoutDashboardIcon,
   LogOutIcon,
-  PinIcon,
-  UserPenIcon,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -21,8 +19,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
 
 export default function UserDropdown() {
+  const { data: session } = authClient.useSession();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -44,10 +44,10 @@ export default function UserDropdown() {
       <DropdownMenuContent align="end" className="max-w-64">
         <DropdownMenuLabel className="flex min-w-0 flex-col">
           <span className="text-foreground truncate text-sm font-medium">
-            Keith Kennedy
+            {session && session?.user?.name}
           </span>
           <span className="text-muted-foreground truncate text-xs font-normal">
-            k.kennedy@originui.com
+            {session && session?.user?.email}
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
