@@ -45,7 +45,7 @@ const Navbar = () => {
           <ThemeToggle />
           <UserDropdown />
           <Link
-            href="/"
+            href="/login"
             className={buttonVariants({
               variant: "default",
               className:
