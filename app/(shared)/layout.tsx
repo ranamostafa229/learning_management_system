@@ -1,10 +1,16 @@
 import { ReactNode } from "react";
 import Navbar from "./_components/Navbar";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
 
-const LayoutShared = ({ children }: { children: ReactNode }) => {
+const LayoutShared = async ({ children }: { children: ReactNode }) => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  console.log("Shared layout session:", session);
   return (
     <div>
-      <Navbar />
+      <Navbar session={session} />
       {children}
     </div>
   );

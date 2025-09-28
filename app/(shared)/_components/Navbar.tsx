@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import UserDropdown from "./UserDropdown";
 import { ThemeToggle } from "@/components/ui/themeToggle";
+import { Session } from "@/lib/auth";
 
 const navigationItems = [
   { name: "Home", href: "/" },
@@ -11,7 +12,8 @@ const navigationItems = [
   { name: "About", href: "/about" },
   // { name: "Contact", href: "/contact" },
 ];
-const Navbar = () => {
+
+const Navbar = ({ session }: { session: Session | null }) => {
   return (
     <header className="flex absolute z-10 items-center  w-full  ">
       <div
@@ -28,7 +30,7 @@ const Navbar = () => {
           />
         </Link>
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex ml-0 lg:ml-36  ">
+        <nav className="hidden lg:flex ml-0 lg:ml-6  ">
           <div className=" flex items-baseline space-x-8">
             {navigationItems.map((item) => (
               <Link
@@ -43,18 +45,21 @@ const Navbar = () => {
         </nav>
         <div className="flex items-center gap-4  ">
           <ThemeToggle />
-          <UserDropdown />
-          <Link
-            href="/login"
-            className={buttonVariants({
-              variant: "default",
-              className:
-                "!rounded-full text-lg lg:text-[17px] w-[150px] lg:w-[200px] h-10 md:h-11 !font-bold ",
-              size: "lg",
-            })}
-          >
-            START LEARNING
-          </Link>
+          {session ? (
+            <UserDropdown session={session} />
+          ) : (
+            <Link
+              href="/login"
+              className={buttonVariants({
+                variant: "default",
+                className:
+                  "!rounded-full text-lg lg:text-[17px] w-[150px] lg:w-[200px] h-10 md:h-11 !font-bold ",
+                size: "lg",
+              })}
+            >
+              START LEARNING
+            </Link>
+          )}
         </div>
       </div>
     </header>

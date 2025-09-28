@@ -20,9 +20,23 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { auth, Session } from "@/lib/auth";
 
-export default function UserDropdown() {
-  const { data: session } = authClient.useSession();
+export default function UserDropdown({ session }: { session: Session | null }) {
+  const router = useRouter();
+
+  async function signOut() {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/login");
+          toast.success("Logged out successfully");
+        },
+      },
+    });
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -52,19 +66,19 @@ export default function UserDropdown() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem asChild className="cursor-pointer">
             <Link href="/">
               <Home size={16} className="opacity-60" aria-hidden="true" />
               <span>Home</span>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem asChild className="cursor-pointer">
             <Link href="/courses">
               <BookOpen size={16} className="opacity-60" aria-hidden="true" />
               <span>Courses</span>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem asChild className="cursor-pointer">
             <Link href="/dashboard">
               <LayoutDashboardIcon
                 size={16}
@@ -77,7 +91,7 @@ export default function UserDropdown() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => signOut()} className="cursor-pointer">
           <LogOutIcon size={16} className="opacity-60" aria-hidden="true" />
           <span>Logout</span>
         </DropdownMenuItem>
