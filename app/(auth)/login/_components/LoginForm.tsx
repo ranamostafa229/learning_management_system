@@ -8,12 +8,17 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
-import { GithubIcon, Loader, Mail } from "lucide-react";
-import { useTransition } from "react";
+import { GithubIcon, Loader, Loader2, Mail } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
 import { toast } from "sonner";
 
 const LoginForm = () => {
   const [githubPending, startGithubTransition] = useTransition();
+  const [emailPending, startEmailTransition] = useTransition();
+  const [email, setEmail] = useState("");
+  const router = useRouter();
+
   async function signInWithGithub() {
     startGithubTransition(async () => {
       await authClient.signIn.social({
@@ -28,6 +33,24 @@ const LoginForm = () => {
           onError: (error) => {
             console.log(error.error.message);
             toast.error(`Error signing in with Github`);
+          },
+        },
+      });
+    });
+  }
+  function signInWithEmail() {
+    startEmailTransition(async () => {
+      await authClient.emailOtp.sendVerificationOtp({
+        email: email,
+        type: "sign-in",
+        fetchOptions: {
+          onSuccess: () => {
+            toast.success("OTP sent to your email, please check your inbox!");
+            router.push(`/verify-request?email=${email}`);
+          },
+          onError: (error) => {
+            console.log(error.error.message);
+            toast.error(`Error sending OTP to email`);
           },
         },
       });
@@ -68,14 +91,39 @@ const LoginForm = () => {
           <div className="flex-grow border-t border-gray-400"></div>
         </div>
         <div>
-          <div className="relative">
-            <Mail className="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground" />
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              signInWithEmail();
+            }}
+          >
+            <div className="relative">
+              <Mail className="absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground" />
 
-            <Input type="email" placeholder="Email Address" className="pl-12" />
-          </div>
-          <Button className="mt-4 w-full rounded-sm cursor-pointer">
-            Continue with Email
-          </Button>
+              <Input
+                type="email"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                placeholder="Email Address"
+                className="pl-12"
+                required
+              />
+            </div>
+            <Button
+              className="mt-4 w-full rounded-sm cursor-pointer"
+              disabled={emailPending}
+              type="submit"
+            >
+              {emailPending ? (
+                <>
+                  <Loader2 className="size-4 animate-spin" />
+                  <span className="ml-2">Loading...</span>
+                </>
+              ) : (
+                "Continue with Email"
+              )}
+            </Button>
+          </form>
         </div>
       </CardContent>
     </Card>
