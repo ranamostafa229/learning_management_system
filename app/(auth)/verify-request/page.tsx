@@ -24,6 +24,7 @@ const VerifyRequest = () => {
   const paramas = useSearchParams();
   const email = paramas.get("email") as string;
   const isOTPCompleted = otp.length === 6;
+
   function verifyOTP() {
     startOtpTransition(async () => {
       await authClient.signIn.emailOtp({

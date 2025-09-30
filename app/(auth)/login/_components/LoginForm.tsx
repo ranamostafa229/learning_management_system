@@ -38,7 +38,7 @@ const LoginForm = () => {
       });
     });
   }
-  function signInWithEmail() {
+  async function signInWithEmail() {
     startEmailTransition(async () => {
       await authClient.emailOtp.sendVerificationOtp({
         email: email,
