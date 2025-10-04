@@ -1,3 +1,4 @@
+"use client";
 import { buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,8 +13,8 @@ const navigationItems = [
   { name: "About", href: "/about" },
   // { name: "Contact", href: "/contact" },
 ];
-
 const Navbar = ({ session }: { session: Session | null }) => {
+  // const { data: session, isPending } = authClient.useSession();
   return (
     <header className="flex absolute z-10 items-center  w-full  ">
       <div

@@ -7,10 +7,11 @@ const Home = () => {
     <section className="relative ">
       <Image
         src="/bgImg.jpg"
-        alt="logo"
+        alt="Background Image"
         width={100}
         className="w-full h-screen brightness-100 object-cover "
         height={50}
+        priority
       />
       {/* Overlay */}
       <div

@@ -19,24 +19,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
-import { authClient } from "@/lib/auth-client";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { auth, Session } from "@/lib/auth";
+import { Session } from "@/lib/auth";
+import useSignout from "@/hooks/use-signout";
 
 export default function UserDropdown({ session }: { session: Session | null }) {
   const router = useRouter();
+  const handleSignout = useSignout();
 
-  async function signOut() {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          router.push("/login");
-          toast.success("Logged out successfully");
-        },
-      },
-    });
-  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -45,8 +35,12 @@ export default function UserDropdown({ session }: { session: Session | null }) {
           className="h-auto p-0 hover:!bg-transparent cursor-pointer"
         >
           <Avatar className="!h-[2.3rem] !w-[2.3rem]">
-            <AvatarImage src="./avatar.jpg" alt="Profile image" />
-            <AvatarFallback>KK</AvatarFallback>
+            <AvatarImage src={session?.user?.image || ""} alt="Profile image" />
+            <AvatarFallback>
+              {session?.user?.name && session?.user?.name.length > 0
+                ? session?.user?.name.charAt(0).toUpperCase()
+                : session?.user?.email?.charAt(0).toUpperCase()}
+            </AvatarFallback>
           </Avatar>
           <ChevronDownIcon
             size={16}
@@ -91,7 +85,7 @@ export default function UserDropdown({ session }: { session: Session | null }) {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={() => signOut()} className="cursor-pointer">
+        <DropdownMenuItem onClick={handleSignout} className="cursor-pointer">
           <LogOutIcon size={16} className="opacity-60" aria-hidden="true" />
           <span>Logout</span>
         </DropdownMenuItem>
