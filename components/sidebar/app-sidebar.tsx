@@ -172,7 +172,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   className="hidden dark:block"
                 />
                 <Image
-                  src={"./logoblack.svg"}
+                  src={"/logoblack.svg"}
                   alt="logo"
                   width={135}
                   height={50}
