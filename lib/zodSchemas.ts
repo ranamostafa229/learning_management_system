@@ -22,7 +22,30 @@ export const courseSchema = z.object({
     .max(100, { error: "Title must be at most 100 characters long" }),
   description: z
     .string()
-    .min(3, { error: "Description must be at least 3 characters long" }),
+    .transform((val) => {
+      try {
+        const parsed = JSON.parse(val);
+        return parsed.text ?? "";
+      } catch {
+        return "";
+      }
+    })
+    .superRefine((val, ctx) => {
+      if (val.length < 3) {
+        ctx.addIssue({
+          code: "too_small",
+          minimum: 3,
+          type: "string",
+          inclusive: true,
+          message: "Description must be at least 3 characters long",
+          origin: "string",
+        });
+      }
+    }),
+
+  // description: z
+  //   .string()
+  //   .min(3, { error: "Description must be at least 3 characters long" }),
   fileKey: z.string().min(1, { error: "File is required" }),
   price: z.coerce.number().min(1, { error: "Price must be a positive number" }),
   duration: z.coerce

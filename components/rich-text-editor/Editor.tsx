@@ -1,10 +1,5 @@
 "use client";
-import {
-  Editor,
-  EditorContent,
-  useEditor,
-  useEditorState,
-} from "@tiptap/react";
+import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Menubar from "./Menubar";
 import TextAlign from "@tiptap/extension-text-align";
@@ -31,30 +26,29 @@ const RichTextEditor = ({
     editorProps: {
       attributes: {
         class:
-          "min-h-[150px] w-full focus:outline-none prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-xl !w-full !max-w-none ",
+          "min-h-[200px] w-full focus:outline-none prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-xl !w-full !max-w-none ",
       },
     },
     //  Event handlers to capture content changes with react-hook-form
+    // onUpdate: ({ editor }) => {
+    //   // onChange?.(editor.getText());
+    //   onChange?.(JSON.stringify(editor.getJSON()));
+    // },
     onUpdate: ({ editor }) => {
-      onChange?.(JSON.stringify(editor.getJSON()));
+      onChange?.(
+        JSON.stringify({
+          text: editor.getText(),
+          json: editor.getJSON(),
+        })
+      );
     },
+
     // Initial content (if any)
     content: initialContent?.length > 0 ? JSON.parse(initialContent) : "",
     // Performance optimization
     immediatelyRender: false,
-
-    // Placeholder when empty
-    // editable: true,
   });
-  // const editorState = useEditorState({
-  //     editor,
-  //     // This function will be called every time the editor state changes
-  //     selector: ({ editor }: { editor: Editor }) => ({
-  //       // It will only re-render if the bold or italic state changes
-  //       isBold: editorInstance.isActive('bold'),
-  //       isItalic: editorInstance.isActive('italic'),
-  //     }),
-  //   })
+
   if (!editor) {
     return null;
   }
