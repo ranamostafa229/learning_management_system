@@ -35,7 +35,13 @@ export default function UserDropdown({ session }: { session: Session | null }) {
           className="h-auto p-0 hover:!bg-transparent cursor-pointer"
         >
           <Avatar className="!h-[2.3rem] !w-[2.3rem]">
-            <AvatarImage src={session?.user?.image || ""} alt="Profile image" />
+            <AvatarImage
+              src={
+                session?.user?.image ||
+                `https://avatar.vercel.sh/${session?.user?.email}`
+              }
+              alt="Profile image"
+            />
             <AvatarFallback>
               {session?.user?.name && session?.user?.name.length > 0
                 ? session?.user?.name.charAt(0).toUpperCase()
@@ -49,7 +55,7 @@ export default function UserDropdown({ session }: { session: Session | null }) {
           />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="max-w-64">
+      <DropdownMenuContent align="end" className="min-w-48">
         <DropdownMenuLabel className="flex min-w-0 flex-col">
           <span className="text-foreground truncate text-sm font-medium">
             {session && session?.user?.name}

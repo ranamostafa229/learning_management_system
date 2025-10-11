@@ -9,14 +9,14 @@ const Home = () => {
         src="/bgImg.jpg"
         alt="Background Image"
         width={100}
-        className="w-full h-screen brightness-100 object-cover "
+        className="w-full h-screen  object-cover "
         height={50}
         priority
       />
       {/* Overlay */}
       <div
         className="absolute inset-0 
-      bg-background opacity-10 dark:opacity-80 w-full h-full "
+      bg-black opacity-35 dark:opacity-80 w-full h-full "
       />
       {/* content */}
       <div
