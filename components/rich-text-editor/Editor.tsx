@@ -30,10 +30,6 @@ const RichTextEditor = ({
       },
     },
     //  Event handlers to capture content changes with react-hook-form
-    // onUpdate: ({ editor }) => {
-    //   // onChange?.(editor.getText());
-    //   onChange?.(JSON.stringify(editor.getJSON()));
-    // },
     onUpdate: ({ editor }) => {
       onChange?.(
         JSON.stringify({

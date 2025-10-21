@@ -30,6 +30,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import RichTextEditor from "@/components/rich-text-editor/Editor";
+import Uploader from "@/components/file-uploader/Uploader";
 
 const CourseCreatingPage = () => {
   // 1. Define your form.
@@ -103,7 +104,11 @@ const CourseCreatingPage = () => {
                         <FormControl>
                           <Input placeholder="Course slug here" {...field} />
                         </FormControl>
-                        <Button type="button" onClick={generateSlug}>
+                        <Button
+                          type="button"
+                          onClick={generateSlug}
+                          title="Generate Slug"
+                        >
                           Generate Slug
                           <Sparkle className="ml-1 " />
                         </Button>
@@ -152,9 +157,10 @@ const CourseCreatingPage = () => {
                   render={({ field }) => (
                     <FormItem className="w-full space-y-1">
                       <FormLabel>Course thumbnai</FormLabel>
-                      <FormControl>
+                      {/* <FormControl>
                         <Input placeholder="thumbnai url" {...field} />
-                      </FormControl>
+                      </FormControl> */}
+                      <Uploader />
                       <FormMessage />
                     </FormItem>
                   )}
@@ -170,7 +176,7 @@ const CourseCreatingPage = () => {
                           defaultValue={field.value}
                           onValueChange={field.onChange}
                         >
-                          <FormControl>
+                          <FormControl title="Course Category">
                             <SelectTrigger className="w-full">
                               <SelectValue placeholder="Select a category" />
                             </SelectTrigger>
@@ -197,7 +203,7 @@ const CourseCreatingPage = () => {
                           defaultValue={field.value}
                           onValueChange={field.onChange}
                         >
-                          <FormControl>
+                          <FormControl title="Course Level">
                             <SelectTrigger className="w-full">
                               <SelectValue placeholder="Select level" />
                             </SelectTrigger>
@@ -222,7 +228,7 @@ const CourseCreatingPage = () => {
                     render={({ field }) => (
                       <FormItem className="space-y-1 w-full">
                         <FormLabel>Duration (hours)</FormLabel>
-                        <FormControl>
+                        <FormControl title="Duration">
                           <Input
                             placeholder="Course duration here"
                             type="number"
@@ -252,7 +258,7 @@ const CourseCreatingPage = () => {
                     render={({ field }) => (
                       <FormItem className="space-y-1 w-full">
                         <FormLabel>Price ($)</FormLabel>
-                        <FormControl>
+                        <FormControl title="Price">
                           <Input
                             placeholder="Course price here"
                             type="number"
@@ -287,7 +293,7 @@ const CourseCreatingPage = () => {
                         defaultValue={field.value}
                         onValueChange={field.onChange}
                       >
-                        <FormControl>
+                        <FormControl title="Course Status">
                           <SelectTrigger className="w-full">
                             <SelectValue placeholder="Select status" />
                           </SelectTrigger>

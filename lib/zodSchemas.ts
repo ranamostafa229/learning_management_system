@@ -1,4 +1,5 @@
-import { z } from "zod";
+import { size, z } from "zod";
+import { is } from "zod/v4/locales";
 
 export const courseLevels = ["Beginner", "Intermediate", "Advanced"] as const;
 export const courseStatus = ["Draft", "Published", "Archived"] as const;
@@ -75,5 +76,10 @@ export const courseSchema = z.object({
     error: "Status is required",
   }),
 });
-
+export const fileUploadSchema = z.object({
+  fileName: z.string().min(1, { error: "File name is required" }),
+  contentType: z.string().min(1, { error: "Content type is required" }),
+  size: z.number().min(1, { error: "File size is required" }),
+  isImage: z.boolean(),
+});
 export type CourseSchemaType = z.infer<typeof courseSchema>;
