@@ -22,7 +22,11 @@ interface UploaderState {
   objectUrl?: string;
   fileType?: "image" | "video";
 }
-export default function Uploader() {
+interface UploaderProps {
+  value?: string;
+  onChange?: (value: string) => void;
+}
+export default function Uploader({ value, onChange }: UploaderProps) {
   const [fileState, setFileState] = useState<UploaderState>({
     error: false,
     id: null,
@@ -31,6 +35,7 @@ export default function Uploader() {
     progress: 0,
     isDeleting: false,
     fileType: "image",
+    key: value,
   });
 
   async function uploadFile(file: File) {
@@ -82,6 +87,7 @@ export default function Uploader() {
               key,
               objectUrl: URL.createObjectURL(file),
             }));
+            onChange?.(key);
             toast.success("File uploaded successfully");
             resolve();
           } else {
@@ -148,7 +154,49 @@ export default function Uploader() {
       }
     }
   }
+  async function handleRemoveFile() {
+    if (fileState.isDeleting || !fileState.objectUrl) return;
+    try {
+      setFileState((prev) => ({ ...prev, isDeleting: true }));
+      const response = await fetch("/api/s3/delete", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ key: fileState.key }),
+      });
+      if (!response.ok) {
+        toast.error("Failed to remove file from server.");
+        setFileState((prev) => ({
+          ...prev,
+          isDeleting: false,
+          error: true,
+        }));
+        return;
+      }
+      if (fileState.objectUrl && !fileState.objectUrl.startsWith("http")) {
+        URL.revokeObjectURL(fileState.objectUrl);
+      }
+      onChange?.(""); // the key is empty string when file is removed
 
+      setFileState({
+        id: null,
+        file: null,
+        uploading: false,
+        error: false,
+        progress: 0,
+        isDeleting: false,
+        objectUrl: undefined,
+        fileType: "image",
+      });
+      toast.success("File removed successfully");
+    } catch (error) {
+      toast.error("Something went wrong, Please try.");
+      setFileState((prev) => ({
+        ...prev,
+        isDeleting: false,
+        error: true,
+      }));
+    }
+  }
   function renderContent() {
     if (fileState.uploading) {
       return (
@@ -162,7 +210,13 @@ export default function Uploader() {
       return <RenderErrorState />;
     }
     if (fileState.objectUrl) {
-      return <RenderUploadedState previewUrl={fileState.objectUrl} />;
+      return (
+        <RenderUploadedState
+          previewUrl={fileState.objectUrl}
+          isDeleting={fileState.isDeleting}
+          handleRemoveFile={handleRemoveFile}
+        />
+      );
     }
     return <RenderEmptyState isDragActive={false} />;
   }
@@ -183,6 +237,7 @@ export default function Uploader() {
     multiple: false,
     maxSize: 1 * 1024 * 1024, // 5 MB
     onDropRejected: rejectedFiles,
+    disabled: fileState.uploading || !!fileState.objectUrl, // (!!) two exclamation marks to convert to boolean
   });
 
   return (

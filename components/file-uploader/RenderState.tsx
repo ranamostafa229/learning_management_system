@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils";
-import { CloudUploadIcon, ImageIcon, XIcon } from "lucide-react";
+import { CloudUploadIcon, ImageIcon, Loader2, XIcon } from "lucide-react";
 import { Button } from "../ui/button";
 
 export function RenderEmptyState({ isDragActive }: { isDragActive: boolean }) {
   return (
-    <div className="">
+    <div>
       <div
         className="flex items-center justify-center mx-auto bg-muted 
       rounded-full size-12 mb-4"
@@ -50,7 +50,15 @@ export function RenderErrorState() {
 import React from "react";
 import Image from "next/image";
 
-export function RenderUploadedState({ previewUrl }: { previewUrl: string }) {
+export function RenderUploadedState({
+  previewUrl,
+  isDeleting,
+  handleRemoveFile,
+}: {
+  previewUrl: string;
+  isDeleting: boolean;
+  handleRemoveFile: React.MouseEventHandler<HTMLButtonElement>;
+}) {
   return (
     <div>
       <Image
@@ -64,8 +72,14 @@ export function RenderUploadedState({ previewUrl }: { previewUrl: string }) {
         size={"icon"}
         className={cn("absolute top-2 right-2")}
         title="Delete uploaded image"
+        disabled={isDeleting}
+        onClick={handleRemoveFile}
       >
-        <XIcon className="size-4" />
+        {isDeleting ? (
+          <Loader2 className="size-4 animate-spin" />
+        ) : (
+          <XIcon className="size-4 cursor-pointer" />
+        )}
       </Button>
     </div>
   );

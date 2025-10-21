@@ -157,10 +157,7 @@ const CourseCreatingPage = () => {
                   render={({ field }) => (
                     <FormItem className="w-full space-y-1">
                       <FormLabel>Course thumbnai</FormLabel>
-                      {/* <FormControl>
-                        <Input placeholder="thumbnai url" {...field} />
-                      </FormControl> */}
-                      <Uploader />
+                      <Uploader onChange={field.onChange} value={field.value} />
                       <FormMessage />
                     </FormItem>
                   )}
