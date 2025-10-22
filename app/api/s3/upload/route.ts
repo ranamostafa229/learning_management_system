@@ -4,9 +4,36 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { S3 } from "@/lib/S3Client";
 import { v4 as uuidv4 } from "uuid";
 import { env } from "@/lib/env";
+import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
+const aj = arcjet
+  .withRule(
+    detectBot({
+      mode: "LIVE",
+      allow: [],
+    })
+  )
+  .withRule(
+    fixedWindow({
+      mode: "LIVE",
+      window: "1m",
+      max: 5, // max 5 requests per window (1 minute)
+    })
+  );
 export async function POST(request: Request) {
+  const session = await auth.api.getSession({ headers: await headers() });
   try {
+    const decision = await aj.protect(request, {
+      fingerprint: session?.user?.id!,
+    });
+    if (decision.isDenied()) {
+      return NextResponse.json(
+        { error: "Not allowed to upload" },
+        { status: 429 }
+      );
+    }
     const body = await request.json();
     const { fileName, contentType, size } = body;
     const key = `${uuidv4()}-${fileName}`;
