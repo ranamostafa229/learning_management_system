@@ -8,7 +8,7 @@ import {
 } from "@/lib/zodSchemas";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { BadgePlus, Info, Sparkle } from "lucide-react";
+import { BadgePlus, Info, Loader2, Sparkle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Form,
@@ -31,8 +31,15 @@ import {
 } from "@/components/ui/select";
 import RichTextEditor from "@/components/rich-text-editor/Editor";
 import Uploader from "@/components/file-uploader/Uploader";
+import { tryCatch } from "@/hooks/try-catch";
+import { CreateCourse } from "./actions";
+import { useTransition } from "react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const CourseCreatingPage = () => {
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
   // 1. Define your form.
   const form = useForm({
     resolver: zodResolver(courseSchema),
@@ -51,9 +58,20 @@ const CourseCreatingPage = () => {
   });
   // 2. Define a submit handler.
   function onSubmit(values: CourseSchemaType) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    startTransition(async () => {
+      const { data: result, error } = await tryCatch(CreateCourse(values));
+      if (error) {
+        toast.error("An unexpected error occurred. Please try again.");
+        return;
+      }
+      if (result.status === "success") {
+        toast.success(result.message);
+        form.reset();
+        router.push("/admin/courses");
+      } else {
+        toast.error(result.message || "Failed to create course.");
+      }
+    });
   }
   const generateSlug = () => {
     const titleValue = form.getValues("title");
@@ -307,7 +325,15 @@ const CourseCreatingPage = () => {
                     </FormItem>
                   )}
                 />
-                <Button type="submit">Create</Button>
+                <Button type="submit" disabled={isPending}>
+                  {isPending ? (
+                    <>
+                      Creating... <Loader2 className="animate-spin ml-1" />
+                    </>
+                  ) : (
+                    "Create Course"
+                  )}
+                </Button>
               </form>
             </Form>
           </CardContent>

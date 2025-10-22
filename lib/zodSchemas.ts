@@ -1,5 +1,4 @@
-import { size, z } from "zod";
-import { is } from "zod/v4/locales";
+import { z } from "zod";
 
 export const courseLevels = ["Beginner", "Intermediate", "Advanced"] as const;
 export const courseStatus = ["Draft", "Published", "Archived"] as const;
@@ -26,24 +25,17 @@ export const courseSchema = z.object({
     .transform((val) => {
       try {
         const parsed = JSON.parse(val);
-        return parsed.text ?? "";
+        // prefer parsed.text, fallback to the raw string
+        return typeof parsed === "object"
+          ? String(parsed.text ?? "")
+          : String(val);
       } catch {
-        return "";
+        return String(val);
       }
     })
-    .superRefine((val, ctx) => {
-      if (val.length < 3) {
-        ctx.addIssue({
-          code: "too_small",
-          minimum: 3,
-          type: "string",
-          inclusive: true,
-          message: "Description must be at least 3 characters long",
-          origin: "string",
-        });
-      }
+    .refine((s) => s.trim().length >= 3, {
+      message: "Description must be at least 3 characters long",
     }),
-
   // description: z
   //   .string()
   //   .min(3, { error: "Description must be at least 3 characters long" }),
