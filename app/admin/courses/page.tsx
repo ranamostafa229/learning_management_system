@@ -1,32 +1,30 @@
-import { buttonVariants } from "@/components/ui/button";
-import { Book } from "lucide-react";
-import Link from "next/link";
+import { adminGetCourses } from "@/app/data/admin/admin-get-courses";
+import { CourseHeader } from "./_components/CourseHeader";
+import { CourseTable } from "./_components/CourseTable";
 
-const CoursesPage = () => {
-  return (
-    <div className="flex flex-col gap-8">
-      <h2 className="flex items-center gap-2  text-xl  font-medium">
-        <Book size={20} />
-        Courses
-      </h2>
-      <div className="bg-card flex justify-between items-center  p-7 ">
-        <h1 className="text-2xl flex gap-4 items-center">
-          <Book size={25} className="text-[#686f7a]" />
-          Jump Into Course Creation
-        </h1>
-        <Link
-          href={"/admin/courses/create"}
-          className={buttonVariants({
-            variant: "default",
-            className:
-              "cursor-pointer rounded-sm dark:hover:!bg-primary/90 hover:!bg-accent-foreground",
-          })}
-        >
-          Create Your Course
-        </Link>
-      </div>
-    </div>
-  );
+const CoursesPage = async () => {
+  try {
+    const courses = await adminGetCourses();
+
+    return (
+      <section className="flex flex-col gap-8">
+        <CourseHeader />
+        <CourseTable courses={courses} />
+      </section>
+    );
+  } catch (error) {
+    console.error("Failed to fetch courses:", error);
+    return (
+      <section className="flex flex-col gap-8">
+        <CourseHeader />
+        <div className="bg-card p-8 text-center">
+          <p className="text-red-500">
+            Failed to load courses. Please try again later.
+          </p>
+        </div>
+      </section>
+    );
+  }
 };
 
 export default CoursesPage;
