@@ -5,8 +5,7 @@ import { S3 } from "@/lib/S3Client";
 import { v4 as uuidv4 } from "uuid";
 import { env } from "@/lib/env";
 import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { requireAdmin } from "@/app/data/admin/require-admin";
 
 const aj = arcjet
   .withRule(
@@ -23,16 +22,23 @@ const aj = arcjet
     })
   );
 export async function POST(request: Request) {
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await requireAdmin(); // will not redirect, since this is an API route but will throw error if not admin
   try {
     const decision = await aj.protect(request, {
       fingerprint: session?.user?.id!,
     });
     if (decision.isDenied()) {
-      return NextResponse.json(
-        { error: "Not allowed to upload" },
-        { status: 429 }
-      );
+      if (decision.reason.isRateLimit()) {
+        return NextResponse.json(
+          { error: "You have blocked due to too many requests" },
+          { status: 429 }
+        );
+      } else {
+        return NextResponse.json(
+          { error: "bot-like behavior detected. Action denied" },
+          { status: 429 }
+        );
+      }
     }
     const body = await request.json();
     const { fileName, contentType, size } = body;
