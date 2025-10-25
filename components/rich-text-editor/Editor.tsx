@@ -31,24 +31,19 @@ const RichTextEditor = ({
     },
     //  Event handlers to capture content changes with react-hook-form
     onUpdate: ({ editor }) => {
-      onChange?.(
-        JSON.stringify({
-          text: editor.getText(),
-          json: editor.getJSON(),
-        })
-      );
+      onChange?.(JSON.stringify(editor.getJSON()));
     },
 
     // Initial content (if any)
     content: initialContent?.length > 0 ? JSON.parse(initialContent) : "",
-    // Performance optimization
+
     immediatelyRender: false,
   });
 
   if (!editor) {
     return null;
   }
-
+  console.log("initialContent", initialContent);
   return (
     <div className="w-full border border-input rounded-lg overflow-hidden dark:bg-input/30">
       <Menubar editor={editor} />

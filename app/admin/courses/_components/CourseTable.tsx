@@ -114,3 +114,4 @@ export const CourseTable = ({ courses }: CourseTableProps) => {
     </Table>
   );
 };
+

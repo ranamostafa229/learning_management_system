@@ -20,25 +20,36 @@ export const courseSchema = z.object({
     .string()
     .min(3, { error: "Title must be at least 3 characters long" })
     .max(100, { error: "Title must be at most 100 characters long" }),
-  description: z
-    .string()
-    .transform((val) => {
+
+  description: z.string().refine(
+    (val) => {
+      // Handle empty or null values
+      if (!val || val.trim() === "") return false;
+
       try {
         const parsed = JSON.parse(val);
-        // prefer parsed.text, fallback to the raw string
-        return typeof parsed === "object"
-          ? String(parsed.text ?? "")
-          : String(val);
+        // Extract text content from the rich text JSON structure
+        const extractText = (node: any): string => {
+          if (typeof node === "string") return node;
+          if (typeof node === "object" && node !== null) {
+            if (node.text) return node.text;
+            if (node.content && Array.isArray(node.content)) {
+              return node.content.map(extractText).join("");
+            }
+          }
+          return "";
+        };
+        const textContent = extractText(parsed);
+        return textContent.trim().length >= 3;
       } catch {
-        return String(val);
+        // If not JSON, treat as plain text
+        return String(val).trim().length >= 3;
       }
-    })
-    .refine((s) => s.trim().length >= 3, {
+    },
+    {
       message: "Description must be at least 3 characters long",
-    }),
-  // description: z
-  //   .string()
-  //   .min(3, { error: "Description must be at least 3 characters long" }),
+    }
+  ),
   fileKey: z.string().min(1, { error: "File is required" }),
   price: z.coerce.number().min(1, { error: "Price must be a positive number" }),
   duration: z.coerce

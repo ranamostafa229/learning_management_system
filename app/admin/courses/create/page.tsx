@@ -160,7 +160,11 @@ const CourseCreatingPage = () => {
                       <FormLabel>Course Description</FormLabel>
                       <FormControl>
                         <RichTextEditor
-                          onChange={field.onChange}
+                          onChange={(content) => {
+                            field.onChange(content);
+                            // Trigger validation after content change
+                            form.trigger("description");
+                          }}
                           initialContent={field.value}
                           placeholder="Start writing your content..."
                         />
@@ -175,7 +179,11 @@ const CourseCreatingPage = () => {
                   render={({ field }) => (
                     <FormItem className="w-full space-y-1">
                       <FormLabel>Course thumbnai</FormLabel>
-                      <Uploader onChange={field.onChange} value={field.value} />
+                      <Uploader
+                        onChange={field.onChange}
+                        value={field.value}
+                        action="create"
+                      />
                       <FormMessage />
                     </FormItem>
                   )}
