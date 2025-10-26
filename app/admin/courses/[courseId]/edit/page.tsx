@@ -1,5 +1,11 @@
 import { adminGetCourse } from "@/app/data/admin/admin-get-course";
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Edit } from "lucide-react";
 import EditCourseForm from "./_components/EditCourseForm";
@@ -32,6 +38,17 @@ export default async function EditCourse({ params }: { params: Params }) {
           </TabsList>
           <TabsContent value="Basic Information" className="ml-2">
             <EditCourseForm data={data} />
+            {/* <Card>
+              <CardHeader>
+                <CardTitle>Basic Information</CardTitle>
+                <CardDescription>
+                  Change your basic information here.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <EditCourseForm data={data} />
+              </CardContent>
+            </Card> */}
           </TabsContent>
           <TabsContent value="Course Strucutre" className="ml-2">
             Change your password here.
