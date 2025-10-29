@@ -9,11 +9,13 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Edit } from "lucide-react";
 import EditCourseForm from "./_components/EditCourseForm";
+import CourseStructure from "./_components/Course-Structure/CourseStructure";
 
 type Params = Promise<{ courseId: string }>;
 export default async function EditCourse({ params }: { params: Params }) {
   const { courseId } = await params;
   const data = await adminGetCourse(courseId);
+  console.log("course data", data);
   return (
     <div className="flex flex-col gap-10">
       <h1 className="flex font-medium text-xl gap-3 items-center">
@@ -38,20 +40,9 @@ export default async function EditCourse({ params }: { params: Params }) {
           </TabsList>
           <TabsContent value="Basic Information" className="ml-2">
             <EditCourseForm data={data} />
-            {/* <Card>
-              <CardHeader>
-                <CardTitle>Basic Information</CardTitle>
-                <CardDescription>
-                  Change your basic information here.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <EditCourseForm data={data} />
-              </CardContent>
-            </Card> */}
           </TabsContent>
           <TabsContent value="Course Strucutre" className="ml-2">
-            Change your password here.
+            <CourseStructure data={data} />
           </TabsContent>
         </Tabs>
       </Card>

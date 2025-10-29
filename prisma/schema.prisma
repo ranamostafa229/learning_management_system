@@ -118,6 +118,7 @@ model Lesson {
   description  String?
   thumbnailKey String?
   videoKey     String?
+  posititon    Int
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   Chapter      Chapter  @relation(fields: [chapterId], references: [id])
