@@ -91,7 +91,7 @@ const ChapterCard = ({
                 key={lesson.id}
                 id={lesson.id}
                 data={{ type: "lesson", chapterId: chapter.id }}
-                className="px-4 "
+                className="px-3 "
               >
                 {(lessonsListeners) => (
                   <LessonRow
