@@ -6,6 +6,7 @@ import { prisma } from "@/lib/db";
 import { ApiResponse } from "@/lib/types";
 import { courseSchema, CourseSchemaType } from "@/lib/zodSchemas";
 import { request } from "@arcjet/next";
+import { revalidatePath } from "next/cache";
 
 const aj = arcjet
   .withRule(
@@ -70,6 +71,49 @@ export async function editCourse(
     return {
       status: "error",
       message: "Failed to update course. Please try again.",
+    };
+  }
+}
+
+export async function reorderLessons(
+  courseId: string,
+  chapterId: string,
+  lessons: { id: string; position: number }[]
+): Promise<ApiResponse> {
+  try {
+    if (!lessons || lessons.length === 0) {
+      return {
+        status: "error",
+        message: "No lessons provided to reorder",
+      };
+    }
+    const updates = lessons.map((lesson) =>
+      prisma.lesson.update({
+        where: {
+          chapterId: chapterId,
+          id: lesson.id,
+        },
+        data: {
+          posititon: lesson.position,
+        },
+      })
+    );
+    await prisma.$transaction(updates); // run all updates in a transaction to make one db call
+    // transaction allows us to run all these update command in one single atomic operation
+
+    revalidatePath(`/admin/courses/${courseId}/edit`); // to refetch the data on the client page
+    // revalidatePath is used to invalidate the cache as nextjs cachese the data
+    // benefit of using useTransation hook is takes this function into account
+    // while useState hook will just skip this function
+
+    return {
+      status: "success",
+      message: "Lessons reordered successfully",
+    };
+  } catch {
+    return {
+      status: "error",
+      message: "Failed to reorder lessons. Please try again.",
     };
   }
 }

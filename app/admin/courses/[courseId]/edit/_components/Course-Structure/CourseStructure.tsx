@@ -23,6 +23,7 @@ import { LayoutList } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ChapterCard from "./ChapterCard";
 import { toast } from "sonner";
+import { reorderLessons } from "../../actions";
 
 interface Props {
   data: AdminCourseSingularType;
@@ -136,7 +137,21 @@ export default function CourseStructure({ data }: Props) {
           id: lesson.id,
           position: lesson.order,
         }));
+        const reorderLessonsPromise = () =>
+          reorderLessons(courseId, activeChapterId, lessonsToUpdate);
+        toast.promise(reorderLessonsPromise(), {
+          loading: "Reordering lessons...",
+          success: (result) => {
+            if (result.status === "success") return result.message;
+            throw new Error(result.message);
+          },
+          error: () => {
+            setItems(previousItems);
+            return "Failed to reorder lessons";
+          },
+        });
       }
+      return;
     }
   }
   const toggleChapter = (chapterId: string) => {
