@@ -15,7 +15,7 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { SortableItem } from "../SortableItem";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { AdminCourseSingularType } from "@/app/data/admin/admin-get-course";
@@ -23,7 +23,7 @@ import { LayoutList } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ChapterCard from "./ChapterCard";
 import { toast } from "sonner";
-import { reorderLessons } from "../../actions";
+import { reorderChapters, reorderLessons } from "../../actions";
 
 interface Props {
   data: AdminCourseSingularType;
@@ -59,6 +59,7 @@ export default function CourseStructure({ data }: Props) {
     const activeType = active.data.current?.type as "chapter" | "lesson";
     const overType = over.data.current?.type as "chapter" | "lesson";
     const courseId = data.id;
+
     if (activeType === "chapter") {
       let targetChapterId = null;
       if (overType === "chapter") {
@@ -87,7 +88,28 @@ export default function CourseStructure({ data }: Props) {
       );
       const previousItems = [...items];
       setItems(updatedChapterForState);
+      if (courseId) {
+        const chaptersToUpdate = updatedChapterForState.map((chapter) => ({
+          id: chapter.id,
+          position: chapter.order,
+        }));
+        const reorderChaptersPromise = () =>
+          reorderChapters(courseId, chaptersToUpdate);
+        toast.promise(reorderChaptersPromise(), {
+          loading: "Reordering chapters...",
+          success: (result) => {
+            if (result.status === "success") return result.message;
+            throw new Error(result.message);
+          },
+          error: () => {
+            setItems(previousItems);
+            return "Failed to reorder chapters";
+          },
+        });
+      }
+      return;
     }
+
     if (activeType === "lesson" && overType === "lesson") {
       const activeChapterId = active.data.current?.chapterId;
       const overChapterId = over.data.current?.chapterId;
@@ -166,6 +188,24 @@ export default function CourseStructure({ data }: Props) {
       )
     );
   };
+  useEffect(() => {
+    setItems((prevItems) => {
+      const updatedItems =
+        data.chapter.map((chapter) => ({
+          id: chapter.id,
+          title: chapter.title,
+          order: chapter.position,
+          isOpen:
+            prevItems.find((item) => item.id === chapter.id)?.isOpen ?? true, // to preserve open state when new server data arrives
+          lessons: chapter.lessons.map((lesson) => ({
+            id: lesson.id,
+            title: lesson.title,
+            order: lesson.posititon,
+          })),
+        })) || [];
+      return updatedItems;
+    });
+  }, [data]);
 
   return (
     <div className="flex flex-col gap-10">

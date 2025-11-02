@@ -80,6 +80,7 @@ export async function reorderLessons(
   chapterId: string,
   lessons: { id: string; position: number }[]
 ): Promise<ApiResponse> {
+  await requireAdmin();
   try {
     if (!lessons || lessons.length === 0) {
       return {
@@ -114,6 +115,45 @@ export async function reorderLessons(
     return {
       status: "error",
       message: "Failed to reorder lessons. Please try again.",
+    };
+  }
+}
+
+export async function reorderChapters(
+  courseId: string,
+  chapters: { id: string; position: number }[]
+): Promise<ApiResponse> {
+  await requireAdmin();
+  try {
+    if (!chapters || chapters.length === 0) {
+      return {
+        status: "error",
+        message: "No chapters provided to reorder",
+      };
+    }
+    const updates = chapters.map((chapter) =>
+      prisma.chapter.update({
+        where: {
+          id: chapter.id,
+          courseId: courseId,
+        },
+        data: {
+          position: chapter.position,
+        },
+      })
+    );
+    await prisma.$transaction(updates); // run all updates in a transaction to make one db call
+
+    revalidatePath(`/admin/courses/${courseId}/edit`); // to refetch the data on the client page
+
+    return {
+      status: "success",
+      message: "Chapters reordered successfully",
+    };
+  } catch {
+    return {
+      status: "error",
+      message: "Failed to reorder chapters. Please try again.",
     };
   }
 }
