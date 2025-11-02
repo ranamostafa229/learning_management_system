@@ -4,7 +4,12 @@ import { requireAdmin } from "@/app/data/admin/require-admin";
 import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
 import { prisma } from "@/lib/db";
 import { ApiResponse } from "@/lib/types";
-import { courseSchema, CourseSchemaType } from "@/lib/zodSchemas";
+import {
+  chapterSchema,
+  ChapterSchemaType,
+  courseSchema,
+  CourseSchemaType,
+} from "@/lib/zodSchemas";
 import { request } from "@arcjet/next";
 import { revalidatePath } from "next/cache";
 
@@ -154,6 +159,52 @@ export async function reorderChapters(
     return {
       status: "error",
       message: "Failed to reorder chapters. Please try again.",
+    };
+  }
+}
+export async function createChapter(
+  values: ChapterSchemaType
+): Promise<ApiResponse> {
+  await requireAdmin();
+  try {
+    const validation = chapterSchema.safeParse(values);
+    if (!validation.success) {
+      return {
+        status: "error",
+        message: "Invalid input data",
+      };
+    }
+    // using transaction to ensures that if two users try to add chapter at the exact same time
+    // ,they don't get the same position number as it create a single operation which is atomic
+    await prisma.$transaction(async (tx) => {
+      const maxPosition = await tx.chapter.findFirst({
+        where: {
+          courseId: validation.data.courseId,
+        },
+        select: {
+          position: true,
+        },
+        orderBy: {
+          position: "desc",
+        },
+      });
+      await prisma.chapter.create({
+        data: {
+          title: validation.data.name,
+          courseId: validation.data.courseId,
+          position: (maxPosition?.position ?? 0) + 1,
+        },
+      });
+    });
+    revalidatePath(`/admin/courses/${validation.data.courseId}/edit`);
+    return {
+      status: "success",
+      message: "Chapter created successfully",
+    };
+  } catch {
+    return {
+      status: "error",
+      message: "Failed to create chapter. Please try again.",
     };
   }
 }

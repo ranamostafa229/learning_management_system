@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import ChapterCard from "./ChapterCard";
 import { toast } from "sonner";
 import { reorderChapters, reorderLessons } from "../../actions";
+import NewChapterModal from "./NewChapterModal";
 
 interface Props {
   data: AdminCourseSingularType;
@@ -215,9 +216,8 @@ export default function CourseStructure({ data }: Props) {
             <LayoutList />
             Chapters
           </CardTitle>
-          <Button className="rounded-sm cursor-pointer dark:hover:!bg-primary/90 hover:!bg-accent-foreground">
-            New Chapter
-          </Button>
+          {/* New chapter modal */}
+          <NewChapterModal courseId={data.id} />
         </CardHeader>
       </Card>
       {items.length > 0 && (
