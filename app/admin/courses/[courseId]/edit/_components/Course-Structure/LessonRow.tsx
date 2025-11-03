@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { DraggableSyntheticListeners } from "@dnd-kit/core";
 import { FileText, GripVertical, Trash2 } from "lucide-react";
 import Link from "next/link";
+import DeleteLesson from "./DeleteLesson";
 
 interface LessonRowProps {
   listeners: DraggableSyntheticListeners;
@@ -38,9 +39,12 @@ const LessonRow = ({
           {lesson.title}
         </Link>
       </div>
-      <Button variant={"ghost"} size={"icon"}>
-        <Trash2 className="size-4" />
-      </Button>
+      {/* Delete lesson Modal */}
+      <DeleteLesson
+        courseId={courseId}
+        chapterId={chapterId}
+        lessonId={lesson.id}
+      />
     </div>
   );
 };
