@@ -85,6 +85,17 @@ export const chapterSchema = z.object({
   courseId: z.uuid({ error: "Invalid course ID" }),
 });
 
+export const lessonSchema = z.object({
+  name: z.string().min(3, { error: "Name must be at least 3 characters long" }),
+  courseId: z.uuid({ error: "Invalid course ID" }),
+  chapterId: z.uuid({ error: "Invalid chapter ID" }),
+  description: z
+    .string()
+    .min(3, { error: "Description must be at least 3 characters long" })
+    .optional(),
+  thumbnailKey: z.string().optional(),
+  videoKey: z.string().optional(),
+});
 export const fileUploadSchema = z.object({
   fileName: z.string().min(1, { error: "File name is required" }),
   contentType: z.string().min(1, { error: "Content type is required" }),
@@ -93,3 +104,4 @@ export const fileUploadSchema = z.object({
 });
 export type CourseSchemaType = z.infer<typeof courseSchema>;
 export type ChapterSchemaType = z.infer<typeof chapterSchema>;
+export type LessonSchemaType = z.infer<typeof lessonSchema>;

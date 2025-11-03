@@ -9,6 +9,8 @@ import {
   ChapterSchemaType,
   courseSchema,
   CourseSchemaType,
+  lessonSchema,
+  LessonSchemaType,
 } from "@/lib/zodSchemas";
 import { request } from "@arcjet/next";
 import { revalidatePath } from "next/cache";
@@ -205,6 +207,54 @@ export async function createChapter(
     return {
       status: "error",
       message: "Failed to create chapter. Please try again.",
+    };
+  }
+}
+
+export async function createLesson(
+  values: LessonSchemaType
+): Promise<ApiResponse> {
+  await requireAdmin();
+  try {
+    const validation = lessonSchema.safeParse(values);
+    if (!validation.success) {
+      return {
+        status: "error",
+        message: "Invalid input data",
+      };
+    }
+    await prisma.$transaction(async (tx) => {
+      const maxPosition = await tx.lesson.findFirst({
+        where: {
+          chapterId: validation.data.chapterId,
+        },
+        select: {
+          posititon: true,
+        },
+        orderBy: {
+          posititon: "desc",
+        },
+      });
+      await tx.lesson.create({
+        data: {
+          title: validation.data.name,
+          chapterId: validation.data.chapterId,
+          description: validation.data.description,
+          thumbnailKey: validation.data.thumbnailKey,
+          videoKey: validation.data.videoKey,
+          posititon: (maxPosition?.posititon ?? 0) + 1,
+        },
+      });
+    });
+    revalidatePath(`/admin/courses/${validation.data.courseId}/edit`);
+    return {
+      status: "success",
+      message: "Lesson created successfully",
+    };
+  } catch {
+    return {
+      status: "error",
+      message: "Failed to create lesson. Please try again.",
     };
   }
 }

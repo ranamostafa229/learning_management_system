@@ -19,6 +19,7 @@ import {
 import { SortableItem } from "../SortableItem";
 import { DraggableSyntheticListeners } from "@dnd-kit/core";
 import LessonRow from "./LessonRow";
+import NewLessonModal from "./NewLessonModal";
 
 interface ChapterCardProps {
   chapter: {
@@ -104,18 +105,9 @@ const ChapterCard = ({
               </SortableItem>
             ))}
           </SortableContext>
-          {/* Add Lesson button */}
+          {/* Add Lesson Modal */}
           <div className="py-2 px-2 w-full dark:bg-card bg-secondary-foreground mt-3">
-            <Button
-              variant={"outline"}
-              className="dark:bg-card bg-secondary-foreground border-0 
-                              text-primary-foreground font-medium text-base cursor-pointer 
-                              hover:bg-inherit dark:hover:bg-inherit hover:text-primary-foreground"
-              title="Add new lesson"
-            >
-              <PlusSquare className="size-4" />
-              Lesson
-            </Button>
+            <NewLessonModal courseId={courseId} chapterId={chapter.id} />
           </div>
         </CollapsibleContent>
       </Collapsible>

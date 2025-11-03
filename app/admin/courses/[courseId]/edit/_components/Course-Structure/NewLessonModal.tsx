@@ -13,35 +13,44 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 import { tryCatch } from "@/hooks/try-catch";
-import { chapterSchema, ChapterSchemaType } from "@/lib/zodSchemas";
+import { lessonSchema, LessonSchemaType } from "@/lib/zodSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
+import React, { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { createChapter } from "../../actions";
+import { createLesson } from "../../actions";
 import { toast } from "sonner";
+import { PlusSquare } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
-const NewChapterModal = ({ courseId }: { courseId: string }) => {
+const NewLessonModal = ({
+  courseId,
+  chapterId,
+}: {
+  courseId: string;
+  chapterId: string;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [pending, startTransition] = useTransition();
 
-  const form = useForm<ChapterSchemaType>({
-    resolver: zodResolver(chapterSchema),
+  const form = useForm<LessonSchemaType>({
+    resolver: zodResolver(lessonSchema),
     defaultValues: {
       name: "",
+      chapterId: chapterId,
       courseId: courseId,
     },
   });
   const handleOpenChange = (open: boolean) => {
     setIsOpen(open);
   };
-  const onSubmit = async (values: ChapterSchemaType) => {
+  const onSubmit = async (values: LessonSchemaType) => {
     startTransition(async () => {
-      const { data: result, error } = await tryCatch(createChapter(values));
+      const { data: result, error } = await tryCatch(createLesson(values));
       if (error) {
         toast.error("An unexpected error occurred. Please try again.");
         return;
@@ -59,17 +68,21 @@ const NewChapterModal = ({ courseId }: { courseId: string }) => {
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button className="rounded-sm cursor-pointer dark:hover:!bg-primary/90 hover:!bg-accent-foreground">
-          New Chapter
+        <Button
+          variant={"outline"}
+          className="dark:bg-card bg-secondary-foreground border-0 
+                              text-primary-foreground font-medium text-base cursor-pointer 
+                              hover:bg-inherit dark:hover:bg-inherit hover:text-primary-foreground"
+          title="Add new lesson"
+        >
+          <PlusSquare className="size-4" />
+          Lesson
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Create New Chapter</DialogTitle>
+          <DialogTitle>Create New Lesson</DialogTitle>
           <Separator />
-          <DialogDescription>
-            What would you like to name your chapter?
-          </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form className="space-y-3" onSubmit={form.handleSubmit(onSubmit)}>
@@ -78,8 +91,9 @@ const NewChapterModal = ({ courseId }: { courseId: string }) => {
               control={form.control}
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel>Lesson Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Chapter Name" {...field} />
+                    <Input placeholder="Lesson here" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -97,4 +111,4 @@ const NewChapterModal = ({ courseId }: { courseId: string }) => {
   );
 };
 
-export default NewChapterModal;
+export default NewLessonModal;
