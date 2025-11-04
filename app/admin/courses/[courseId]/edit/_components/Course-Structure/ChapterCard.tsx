@@ -5,13 +5,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import {
-  ChevronDown,
-  ChevronRight,
-  GripVertical,
-  PlusSquare,
-  Trash2,
-} from "lucide-react";
+import { ChevronDown, ChevronRight, GripVertical } from "lucide-react";
 import {
   SortableContext,
   verticalListSortingStrategy,
@@ -20,6 +14,7 @@ import { SortableItem } from "../SortableItem";
 import { DraggableSyntheticListeners } from "@dnd-kit/core";
 import LessonRow from "./LessonRow";
 import NewLessonModal from "./NewLessonModal";
+import DeleteChapter from "./DeleteChapter";
 
 interface ChapterCardProps {
   chapter: {
@@ -77,9 +72,10 @@ const ChapterCard = ({
               {chapter.title[0].toUpperCase() + chapter.title.slice(1)}
             </p>
           </div>
-          <Button variant={"ghost"} size={"icon"}>
-            <Trash2 className="size-4" />
-          </Button>
+          {/* Delete Chapter Alert */}
+          <div>
+            <DeleteChapter courseId={courseId} chapterId={chapter.id} />
+          </div>
         </div>
         {/* Lessons */}
         <CollapsibleContent className="dark:bg-sidebar-accent pt-3">

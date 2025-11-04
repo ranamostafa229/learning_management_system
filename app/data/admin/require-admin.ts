@@ -8,10 +8,10 @@ export async function requireAdmin() {
     headers: await headers(),
   });
   if (!session) {
-    return redirect("/login");
+    redirect("/login");
   }
   if (session.user.role !== "admin") {
-    return redirect("/not-admin");
+    redirect("/not-admin");
   }
   return session;
 }

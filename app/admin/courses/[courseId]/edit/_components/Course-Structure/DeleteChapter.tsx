@@ -10,26 +10,24 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { tryCatch } from "@/hooks/try-catch";
 import { Trash2 } from "lucide-react";
 import { useState, useTransition } from "react";
-import { deleteLesson } from "../../actions";
+import { deleteChapter } from "../../actions";
 import { toast } from "sonner";
 
 interface Props {
   courseId: string;
   chapterId: string;
-  lessonId: string;
 }
-const DeleteLesson = ({ courseId, chapterId, lessonId }: Props) => {
+const DeleteChapter = ({ courseId, chapterId }: Props) => {
   const [open, setOpen] = useState(false);
   const [pending, startTransition] = useTransition();
 
-  const onSubmit = async () => {
+  const onSubmit = () => {
     startTransition(async () => {
       const { data: result, error } = await tryCatch(
-        deleteLesson(courseId, chapterId, lessonId)
+        deleteChapter(courseId, chapterId)
       );
 
       if (error) {
@@ -49,17 +47,16 @@ const DeleteLesson = ({ courseId, chapterId, lessonId }: Props) => {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant={"ghost"} size={"icon"} className="cursor-pointer">
+        <Button variant={"ghost"} size={"icon"}>
           <Trash2 className="size-4" />
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <Separator />
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete your
-            lesson.
+            chapter.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -73,4 +70,4 @@ const DeleteLesson = ({ courseId, chapterId, lessonId }: Props) => {
   );
 };
 
-export default DeleteLesson;
+export default DeleteChapter;

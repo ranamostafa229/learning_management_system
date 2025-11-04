@@ -121,7 +121,7 @@ model Lesson {
   posititon    Int
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  Chapter      Chapter  @relation(fields: [chapterId], references: [id])
+  Chapter      Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
   chapterId    String
 }
 
