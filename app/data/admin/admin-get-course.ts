@@ -22,11 +22,17 @@ export async function adminGetCourse(courseId: string) {
       fileKey: true,
       slug: true,
       chapter: {
+        orderBy: {
+          position: "asc",
+        },
         select: {
           id: true,
           title: true,
           position: true,
           lessons: {
+            orderBy: {
+              posititon: "asc", // ensures lessons are always returned in the saved order after edit lessons
+            },
             select: {
               id: true,
               title: true,

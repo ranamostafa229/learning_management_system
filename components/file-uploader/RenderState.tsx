@@ -2,7 +2,13 @@ import { cn } from "@/lib/utils";
 import { CloudUploadIcon, ImageIcon, Loader2, XIcon } from "lucide-react";
 import { Button } from "../ui/button";
 
-export function RenderEmptyState({ isDragActive }: { isDragActive: boolean }) {
+export function RenderEmptyState({
+  isDragActive,
+  fileType,
+}: {
+  isDragActive: boolean;
+  fileType?: "image" | "video";
+}) {
   return (
     <div>
       <div
@@ -28,7 +34,7 @@ export function RenderEmptyState({ isDragActive }: { isDragActive: boolean }) {
         size={"lg"}
         className="cursor-pointer text-primary bg-base border-dashed border-primary mt-4 hover:text-primary"
       >
-        CHOOSE IMAGE
+        {fileType === "image" ? "CHOOSE IMAGE" : "UPLOAD VIDEO"}
       </Button>
     </div>
   );
@@ -54,19 +60,29 @@ export function RenderUploadedState({
   previewUrl,
   isDeleting,
   handleRemoveFile,
+  fileType,
 }: {
   previewUrl: string;
   isDeleting: boolean;
   handleRemoveFile: React.MouseEventHandler<HTMLButtonElement>;
+  fileType: "image" | "video";
 }) {
   return (
-    <div>
-      <Image
-        src={previewUrl}
-        alt="uploaded image"
-        fill
-        className="object-contain p-2"
-      />
+    <div className="relative group w-full h-60 flex items-center justify-center">
+      {fileType === "video" ? (
+        <video
+          src={previewUrl}
+          controls
+          className="rounded-md w-full h-full "
+        />
+      ) : (
+        <Image
+          src={previewUrl}
+          alt="uploaded image"
+          fill
+          className="object-contain p-2"
+        />
+      )}
       <Button
         variant={"destructive"}
         size={"icon"}

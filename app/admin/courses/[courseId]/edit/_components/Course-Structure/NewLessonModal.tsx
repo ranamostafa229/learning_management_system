@@ -93,7 +93,7 @@ const NewLessonModal = ({
                 <FormItem>
                   <FormLabel>Lesson Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Lesson here" {...field} />
+                    <Input placeholder="Name here" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -402,15 +402,10 @@ export async function deleteChapter(
       status: "success",
       message: "Chapter deleted and positions reordered successfully",
     };
-  } catch (err) {
-    console.error(err);
-    return { status: "error", message: "Failed to delete chapter" };
+  } catch {
+    return {
+      status: "error",
+      message: "Failed to delete chapter",
+    };
   }
-
-  // } catch {
-  //   return {
-  //     status: "error",
-  //     message: "Failed to delete chapter",
-  //   };
-  // }
 }

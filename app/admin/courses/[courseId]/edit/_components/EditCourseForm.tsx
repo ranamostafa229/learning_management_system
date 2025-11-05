@@ -172,6 +172,7 @@ const EditCourseForm = ({ data }: Props) => {
                 onChange={field.onChange}
                 value={field.value}
                 action="edit"
+                fileTypeAccepted="image"
               />
               <FormMessage />
             </FormItem>
@@ -319,15 +320,17 @@ const EditCourseForm = ({ data }: Props) => {
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={isPending}>
-          {isPending ? (
-            <>
-              Saving... <Loader2 className="animate-spin ml-1" />
-            </>
-          ) : (
-            "Save"
-          )}
-        </Button>
+        <div className="flex justify-end">
+          <Button type="submit" disabled={isPending}>
+            {isPending ? (
+              <>
+                Saving... <Loader2 className="animate-spin ml-1" />
+              </>
+            ) : (
+              "Save Changes"
+            )}
+          </Button>
+        </div>
       </form>
     </Form>
   );

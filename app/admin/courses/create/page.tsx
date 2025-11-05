@@ -183,6 +183,7 @@ const CourseCreatingPage = () => {
                         onChange={field.onChange}
                         value={field.value}
                         action="create"
+                        fileTypeAccepted="image"
                       />
                       <FormMessage />
                     </FormItem>
