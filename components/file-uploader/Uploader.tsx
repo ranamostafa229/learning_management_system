@@ -342,7 +342,8 @@ export default function Uploader({
         "border-dashed border-2 p-10 text-center cursor-pointer hover:bg-muted/50 transition-colors duration-200 ease-in-out w-full h-64",
         isDragActive
           ? "border-primary bg-primary/10 border-solid"
-          : "border-muted hover:border-primary"
+          : "border-muted hover:border-primary",
+        action === "create" && "w-52 md:w-fit"
       )}
     >
       <CardContent className="relative flex items-center justify-center h-full w-full p-4">

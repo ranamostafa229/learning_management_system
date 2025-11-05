@@ -68,7 +68,12 @@ export function RenderUploadedState({
   fileType: "image" | "video";
 }) {
   return (
-    <div className="relative group w-full h-60 flex items-center justify-center">
+    <div
+      className={cn(
+        "relative group  h-full flex items-center justify-center",
+        fileType === "image" ? "min-w-40" : "w-full"
+      )}
+    >
       {fileType === "video" ? (
         <video
           src={previewUrl}
@@ -80,7 +85,7 @@ export function RenderUploadedState({
           src={previewUrl}
           alt="uploaded image"
           fill
-          className="object-contain p-2"
+          className="object-contain p-2 "
         />
       )}
       <Button
@@ -112,7 +117,7 @@ export function RenderUploadingState({
     <div className="flex flex-col justify-center items-center">
       <p>{`${progress}%`}</p>
       <p className="text-sm text-foreground font-medium mt-2">Uploading...</p>
-      <p className="text-sm text-muted-foreground truncate max-w-xs mt-1">
+      <p className="text-sm text-muted-foreground truncate  max-w-40 mt-1">
         {file.name}
       </p>
     </div>

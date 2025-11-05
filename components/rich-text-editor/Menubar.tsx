@@ -59,7 +59,10 @@ const Menubar = ({ editor }: Props) => {
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-1 border border-input border-t-0 border-x-0 rounded-t-lg p-2 bg-card">
+    <div
+      className="flex flex-wrap items-center gap-1 border 
+    border-input border-t-0 border-x-0 rounded-t-lg p-2 bg-card "
+    >
       <TooltipProvider>
         <div className="flex flex-wrap gap-1">
           <EditorToolbarButton
@@ -126,7 +129,7 @@ const Menubar = ({ editor }: Props) => {
           />
         </div>
 
-        <div className="w-px h-6 bg-border mx-2" />
+        <div className="w-px h-6 bg-border mx-1" />
         <div className="flex flex-wrap gap-1">
           <EditorToolbarButton
             handleClick={() =>
@@ -156,7 +159,7 @@ const Menubar = ({ editor }: Props) => {
             content="Align Right"
           />
         </div>
-        <div className="w-px h-6 bg-border mx-2" />
+        <div className="w-px h-6 bg-border mx-1" />
         <div className="flex flex-wrap gap-1">
           <Tooltip>
             <TooltipTrigger asChild>

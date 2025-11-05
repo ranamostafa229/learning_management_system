@@ -8,12 +8,14 @@ type Props = {
   onChange?: (content: string) => void;
   initialContent?: string;
   placeholder?: string;
+  height?: string;
 };
 
 const RichTextEditor = ({
   onChange,
   initialContent = "",
   placeholder = "Start typing...",
+  height,
 }: Props) => {
   const editor = useEditor({
     extensions: [
@@ -25,8 +27,7 @@ const RichTextEditor = ({
     // Editor configuration
     editorProps: {
       attributes: {
-        class:
-          "min-h-[200px] w-full focus:outline-none prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-xl !w-full !max-w-none ",
+        class: `min-h-[200px] w-full focus:outline-none prose dark:prose-invert prose-sm sm:prose-base lg:prose-lg xl:prose-xl !w-full !max-w-none  `,
       },
     },
     //  Event handlers to capture content changes with react-hook-form
@@ -43,9 +44,10 @@ const RichTextEditor = ({
   if (!editor) {
     return null;
   }
-  console.log("initialContent", initialContent);
   return (
-    <div className="w-full border border-input rounded-lg overflow-hidden dark:bg-input/30">
+    <div
+      className={`w-full border border-input rounded-lg overflow-auto dark:bg-input/30 max-h-${height}  `}
+    >
       <Menubar editor={editor} />
       <EditorContent editor={editor} className="p-4" />
     </div>

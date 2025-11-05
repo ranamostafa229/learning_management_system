@@ -24,22 +24,30 @@ import { updateLesson } from "../../[courseId]/[chapterId]/[lessonId]/actions";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { createLesson } from "../../[courseId]/edit/actions";
 
 interface Props {
   initialData?: AdminLessonType;
   action: "edit" | "create";
   courseId: string;
   chapterId: string;
+  openModal?: (open: boolean) => void;
 }
 
-const LessonForm = ({ initialData, action, courseId, chapterId }: Props) => {
+const LessonForm = ({
+  initialData,
+  action,
+  courseId,
+  chapterId,
+  openModal,
+}: Props) => {
   const [pending, startTransition] = useTransition();
   const router = useRouter();
 
   const form = useForm<LessonSchemaType>({
     resolver: zodResolver(lessonSchema),
     defaultValues: {
-      name: initialData?.title,
+      name: initialData?.title || "",
       description: initialData?.description ?? undefined,
       thumbnailKey: initialData?.thumbnailKey ?? undefined,
       videoKey: initialData?.videoKey ?? undefined,
@@ -50,14 +58,20 @@ const LessonForm = ({ initialData, action, courseId, chapterId }: Props) => {
   const onSubmit = (values: LessonSchemaType) => {
     startTransition(async () => {
       const { data: result, error } = await tryCatch(
-        updateLesson(values, initialData!.id)
+        action === "edit"
+          ? updateLesson(values, initialData!.id)
+          : createLesson(values)
       );
       if (error) {
         toast.error("An unexpected error occurred. Please try again.");
       }
       if (result?.status === "success") {
         toast.success(result.message);
-        router.push(`/admin/courses/${courseId}/edit`);
+        action === "edit" && router.push(`/admin/courses/${courseId}/edit`);
+        if (action === "create") {
+          form.reset();
+          openModal?.(false);
+        }
       } else if (result?.status === "error") {
         toast.error(result.message);
       }
@@ -65,11 +79,22 @@ const LessonForm = ({ initialData, action, courseId, chapterId }: Props) => {
   };
 
   return (
-    <Card className="rounded-md">
+    <Card
+      className={cn(
+        "rounded-md",
+        action === "create" && "max-w-xs sm:max-w-2xl"
+      )}
+    >
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <Tabs defaultValue="Basic" className="py-2 gap-5">
+            <Tabs
+              defaultValue="Basic"
+              className={cn(
+                "py-2 gap-5 ",
+                action === "create" && "min-h-[480px]"
+              )}
+            >
               <TabsList className="w-full h-12 ">
                 <TabsTrigger
                   value="Basic"
@@ -92,9 +117,9 @@ const LessonForm = ({ initialData, action, courseId, chapterId }: Props) => {
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-base">Name</FormLabel>
+                      <FormLabel className="text-base">Lesson Title</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input {...field} placeholder="Title Here" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -110,6 +135,7 @@ const LessonForm = ({ initialData, action, courseId, chapterId }: Props) => {
                         <RichTextEditor
                           initialContent={field.value}
                           onChange={(content) => field.onChange(content)}
+                          height="96"
                         />
                       </FormControl>
                       <FormMessage />
@@ -119,7 +145,11 @@ const LessonForm = ({ initialData, action, courseId, chapterId }: Props) => {
               </TabsContent>
               <TabsContent
                 value="Media"
-                className={cn("space-y-7", action === "create" && "flex")}
+                className={cn(
+                  action === "create"
+                    ? "space-y-4  md:flex md:space-y-0  gap-4  "
+                    : "space-y-7"
+                )}
               >
                 <FormField
                   name="thumbnailKey"
@@ -127,7 +157,7 @@ const LessonForm = ({ initialData, action, courseId, chapterId }: Props) => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-base">Video Poster</FormLabel>
-                      <FormControl>
+                      <FormControl className="">
                         <Uploader
                           {...field}
                           action={action}

@@ -16,7 +16,10 @@ export function SiteHeader() {
           orientation="vertical"
           className="mx-2 data-[orientation=vertical]:h-4"
         />
-        <h1 className="text-base font-semibold">Admin Dashboard</h1>
+        <h1 className="text-base font-semibold">
+          <span className="hidden sm:inline-block sm:pr-1">Admin </span>
+          Dashboard
+        </h1>
         <div className="ml-auto flex items-center gap-4">
           <Link
             href={"/admin/courses/create"}

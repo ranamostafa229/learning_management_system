@@ -2,30 +2,14 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { tryCatch } from "@/hooks/try-catch";
-import { lessonSchema, LessonSchemaType } from "@/lib/zodSchemas";
-import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
-import { createLesson } from "../../actions";
-import { toast } from "sonner";
+import { useState } from "react";
 import { PlusSquare } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import LessonForm from "@/app/admin/courses/_components/lesson/LessonForm";
 
 const NewLessonModal = ({
   courseId,
@@ -35,35 +19,36 @@ const NewLessonModal = ({
   chapterId: string;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [pending, startTransition] = useTransition();
 
-  const form = useForm<LessonSchemaType>({
-    resolver: zodResolver(lessonSchema),
-    defaultValues: {
-      name: "",
-      chapterId: chapterId,
-      courseId: courseId,
-    },
-  });
   const handleOpenChange = (open: boolean) => {
     setIsOpen(open);
   };
-  const onSubmit = async (values: LessonSchemaType) => {
-    startTransition(async () => {
-      const { data: result, error } = await tryCatch(createLesson(values));
-      if (error) {
-        toast.error("An unexpected error occurred. Please try again.");
-        return;
-      }
-      if (result.status === "success") {
-        toast.success(result.message);
-        form.reset();
-        setIsOpen(false);
-      } else if (result.status === "error") {
-        toast.error(result.message);
-      }
-    });
-  };
+
+  // const form = useForm<LessonSchemaType>({
+  //   resolver: zodResolver(lessonSchema),
+  //   defaultValues: {
+  //     name: "",
+  //     chapterId: chapterId,
+  //     courseId: courseId,
+  //   },
+  // });
+
+  // const onSubmit = async (values: LessonSchemaType) => {
+  //   startTransition(async () => {
+  //     const { data: result, error } = await tryCatch(createLesson(values));
+  //     if (error) {
+  //       toast.error("An unexpected error occurred. Please try again.");
+  //       return;
+  //     }
+  //     if (result.status === "success") {
+  //       toast.success(result.message);
+  //       form.reset();
+  //       setIsOpen(false);
+  //     } else if (result.status === "error") {
+  //       toast.error(result.message);
+  //     }
+  //   });
+  // };
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
@@ -71,20 +56,26 @@ const NewLessonModal = ({
         <Button
           variant={"outline"}
           className="dark:bg-card bg-secondary-foreground border-0 
-                              text-primary-foreground font-medium text-base cursor-pointer 
-                              hover:bg-inherit dark:hover:bg-inherit hover:text-primary-foreground"
+          text-primary-foreground font-medium text-base cursor-pointer 
+          hover:bg-inherit dark:hover:bg-inherit hover:text-primary-foreground"
           title="Add new lesson"
         >
           <PlusSquare className="size-4" />
           Lesson
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="max-w-xs sm:max-w-2xl max-h-full overflow-auto  ">
         <DialogHeader>
           <DialogTitle>Create New Lesson</DialogTitle>
           <Separator />
         </DialogHeader>
-        <Form {...form}>
+        <LessonForm
+          action="create"
+          chapterId={chapterId}
+          courseId={courseId}
+          openModal={setIsOpen}
+        />
+        {/* <Form {...form}>
           <form className="space-y-3" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               name="name"
@@ -105,7 +96,7 @@ const NewLessonModal = ({
               </Button>
             </DialogFooter>
           </form>
-        </Form>
+        </Form> */}
       </DialogContent>
     </Dialog>
   );
