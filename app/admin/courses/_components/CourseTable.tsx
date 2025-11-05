@@ -1,6 +1,5 @@
 import { AdminCourseType } from "@/app/data/admin/admin-get-courses";
 import { buttonVariants } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import {
   Table,
   TableBody,
@@ -10,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useConstructUrl } from "@/hooks/use-construct-url";
+import { constructUrl } from "@/hooks/use-construct-url";
 import { Eye, PencilLine, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -68,12 +67,12 @@ export const CourseTable = ({ courses }: CourseTableProps) => {
           <TableHead className="text-center">Actions</TableHead>
         </TableRow>
       </TableHeader>
-      {courses.map((course) => {
-        const imageUrl = useConstructUrl(course.fileKey);
+      <TableBody className="bg-card">
+        {courses.map((course) => {
+          const imageUrl = constructUrl(course.fileKey);
 
-        return (
-          <TableBody className="bg-card" key={course.id}>
-            <TableRow>
+          return (
+            <TableRow key={course.id}>
               <TableCell>
                 <Image
                   src={imageUrl}
@@ -107,11 +106,9 @@ export const CourseTable = ({ courses }: CourseTableProps) => {
                 />
               </TableCell>
             </TableRow>
-            <TableRow className="border-b border-border last:border-0" />
-          </TableBody>
-        );
-      })}
+          );
+        })}
+      </TableBody>
     </Table>
   );
 };
-
