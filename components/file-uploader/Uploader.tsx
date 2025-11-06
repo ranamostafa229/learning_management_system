@@ -128,82 +128,6 @@ export default function Uploader({
     [fileTypeAccepted, onChange]
   );
 
-  // async function uploadFile(file: File) {
-  //   setFileState((prev) => ({ ...prev, uploading: true, progress: 0 }));
-  //   try {
-  //     const presignedResponse = await fetch("/api/s3/upload", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         fileName: file.name,
-  //         contentType: file.type,
-  //         size: file.size,
-  //         isImage: fileTypeAccepted === "image" ? true : false,
-  //       }),
-  //     });
-
-  //     if (!presignedResponse.ok) {
-  //       setFileState((prev) => ({
-  //         ...prev,
-  //         uploading: false,
-  //         error: true,
-  //         progress: 0,
-  //       }));
-  //       const errorData = await presignedResponse.json();
-  //       throw new Error(errorData.details || "Failed to get presigned URL");
-  //     }
-
-  //     const { presignedUrl, key } = await presignedResponse.json();
-
-  //     await new Promise<void>((resolve, reject) => {
-  //       const xhr = new XMLHttpRequest();
-
-  //       xhr.upload.onprogress = (event) => {
-  //         if (event.lengthComputable) {
-  //           const percentCompleted = (event.loaded / event.total) * 100;
-  //           setFileState((prev) => ({
-  //             ...prev,
-  //             progress: Math.round(percentCompleted),
-  //           }));
-  //         }
-  //       };
-
-  //       xhr.onload = () => {
-  //         if (xhr.status === 200 || xhr.status === 204) {
-  //           setFileState((prev) => ({
-  //             ...prev,
-  //             uploading: false,
-  //             progress: 100,
-  //             key,
-  //             objectUrl: URL.createObjectURL(file),
-  //           }));
-  //           onChange?.(key);
-  //           toast.success("File uploaded successfully");
-  //           resolve();
-  //         } else {
-  //           reject(new Error(`Upload failed...`));
-  //         }
-  //       };
-
-  //       xhr.onerror = () => {
-  //         reject(new Error("Network error occurred"));
-  //       };
-
-  //       xhr.open("PUT", presignedUrl);
-  //       xhr.setRequestHeader("Content-Type", file.type);
-  //       xhr.send(file);
-  //     });
-  //   } catch (error: any) {
-  //     toast.error("Something went wrong during uploading file.");
-  //     setFileState((prev) => ({
-  //       ...prev,
-  //       uploading: false,
-  //       error: true,
-  //       progress: 0,
-  //     }));
-  //   }
-  // }
-
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       if (acceptedFiles.length > 0) {
@@ -342,8 +266,7 @@ export default function Uploader({
         "border-dashed border-2 p-10 text-center cursor-pointer hover:bg-muted/50 transition-colors duration-200 ease-in-out w-full h-64",
         isDragActive
           ? "border-primary bg-primary/10 border-solid"
-          : "border-muted hover:border-primary",
-        action === "create" && "w-52 md:w-fit"
+          : "border-muted hover:border-primary"
       )}
     >
       <CardContent className="relative flex items-center justify-center h-full w-full p-4">

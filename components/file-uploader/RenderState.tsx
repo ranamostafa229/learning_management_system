@@ -68,30 +68,21 @@ export function RenderUploadedState({
   fileType: "image" | "video";
 }) {
   return (
-    <div
-      className={cn(
-        "relative group  h-full flex items-center justify-center",
-        fileType === "image" ? "min-w-40" : "w-full"
-      )}
-    >
+    <div className="relative group h-full flex items-center justify-center w-full">
       {fileType === "video" ? (
-        <video
-          src={previewUrl}
-          controls
-          className="rounded-md w-full h-full "
-        />
+        <video src={previewUrl} controls className="rounded-md w-full h-full" />
       ) : (
         <Image
           src={previewUrl}
           alt="uploaded image"
           fill
-          className="object-contain p-2 "
+          className="object-contain p-2"
         />
       )}
       <Button
         variant={"destructive"}
         size={"icon"}
-        className={cn("absolute top-2 right-2")}
+        className={cn("absolute top-0 right-1")}
         title="Delete uploaded image"
         disabled={isDeleting}
         onClick={handleRemoveFile}

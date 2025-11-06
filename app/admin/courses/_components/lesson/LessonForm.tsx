@@ -155,7 +155,7 @@ const LessonForm = ({
                   name="thumbnailKey"
                   control={form.control}
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="w-full">
                       <FormLabel className="text-base">Video Poster</FormLabel>
                       <FormControl className="">
                         <Uploader
@@ -172,7 +172,7 @@ const LessonForm = ({
                   name="videoKey"
                   control={form.control}
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="w-full">
                       <FormLabel className="text-base">Video File</FormLabel>
                       <FormControl>
                         <Uploader
