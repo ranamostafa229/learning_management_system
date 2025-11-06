@@ -1,5 +1,9 @@
-import { AdminCourseType } from "@/app/data/admin/admin-get-courses";
+import {
+  AdminCourseType,
+  adminGetCourses,
+} from "@/app/data/admin/admin-get-courses";
 import { buttonVariants } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -43,17 +47,7 @@ const ActionButton = ({
   </Link>
 );
 
-export const CourseTable = ({ courses }: CourseTableProps) => {
-  if (courses.length === 0) {
-    return (
-      <div className="bg-card p-8 text-center">
-        <p className="text-muted-foreground">
-          No courses found. Create your first course to get started!
-        </p>
-      </div>
-    );
-  }
-
+export const CourseTable = async ({ courses }: CourseTableProps) => {
   return (
     <Table>
       <TableCaption>A list of your recent courses.</TableCaption>
@@ -110,5 +104,34 @@ export const CourseTable = ({ courses }: CourseTableProps) => {
         })}
       </TableBody>
     </Table>
+  );
+};
+
+export const CourseTableSkeleton = () => {
+  return (
+    <TableBody className="bg-card">
+      <TableRow>
+        <TableCell>
+          <Skeleton className="h-8 animate-pulse" />
+        </TableCell>
+        <TableCell>
+          <Skeleton className="h-5" />
+        </TableCell>
+        <TableCell>
+          <Skeleton className="h-5 " />
+        </TableCell>
+        <TableCell>
+          <Skeleton className="h-5" />
+        </TableCell>
+        <TableCell>
+          <Skeleton className="h-5 w" />
+        </TableCell>
+        <TableCell className=" space-x-2 text-center ">
+          <Skeleton className={buttonVariants({ variant: "outline" })} />
+          <Skeleton className={buttonVariants({ variant: "outline" })} />
+          <Skeleton className={buttonVariants({ variant: "outline" })} />
+        </TableCell>
+      </TableRow>
+    </TableBody>
   );
 };
