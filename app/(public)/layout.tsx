@@ -7,9 +7,8 @@ const LayoutShared = async ({ children }: { children: ReactNode }) => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-  console.log("Shared layout session:", session?.user);
   return (
-    <div>
+    <div className="relative">
       <Navbar session={session} />
       {children}
     </div>

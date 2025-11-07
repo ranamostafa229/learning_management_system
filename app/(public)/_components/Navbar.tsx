@@ -5,6 +5,8 @@ import Link from "next/link";
 import UserDropdown from "./UserDropdown";
 import { ThemeToggle } from "@/components/ui/themeToggle";
 import { Session } from "@/lib/auth";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 const navigationItems = [
   { name: "Home", href: "/" },
@@ -15,8 +17,10 @@ const navigationItems = [
 ];
 const Navbar = ({ session }: { session: Session | null }) => {
   // const { data: session, isPending } = authClient.useSession();
+  const pathname = usePathname();
+
   return (
-    <header className="flex absolute z-10 items-center  w-full  ">
+    <header className="fixed top-0 left-0 z-10 items-center  w-full  ">
       <div
         className="container mx-auto flex  items-center justify-between py-4 px-4 
       lg:px-0"
@@ -27,7 +31,17 @@ const Navbar = ({ session }: { session: Session | null }) => {
             alt="logo"
             width={100}
             height={50}
-            className="w-32"
+            className={cn(
+              "w-32 hidden dark:block",
+              pathname === "/" && "block"
+            )}
+          />
+          <Image
+            src="/logoblack.svg"
+            alt="logo"
+            width={100}
+            height={50}
+            className={cn("w-32 dark:hidden", pathname === "/" && "hidden")}
           />
         </Link>
         {/* Desktop Navigation */}
@@ -37,7 +51,10 @@ const Navbar = ({ session }: { session: Session | null }) => {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-md font-medium text-white hover:text-primary"
+                className={cn(
+                  "text-md font-medium  hover:text-primary",
+                  pathname === "/" && "text-white"
+                )}
               >
                 {item.name}
               </Link>
