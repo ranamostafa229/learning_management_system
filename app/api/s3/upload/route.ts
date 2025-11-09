@@ -4,23 +4,16 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { S3 } from "@/lib/S3Client";
 import { v4 as uuidv4 } from "uuid";
 import { env } from "@/lib/env";
-import arcjet, { detectBot, fixedWindow } from "@/lib/arcjet";
+import arcjet, { fixedWindow } from "@/lib/arcjet";
 import { requireAdmin } from "@/app/data/admin/require-admin";
 
-const aj = arcjet
-  .withRule(
-    detectBot({
-      mode: "LIVE",
-      allow: [],
-    })
-  )
-  .withRule(
-    fixedWindow({
-      mode: "LIVE",
-      window: "1m",
-      max: 5, // max 5 requests per window (1 minute)
-    })
-  );
+const aj = arcjet.withRule(
+  fixedWindow({
+    mode: "LIVE",
+    window: "1m",
+    max: 5, // max 5 requests per window (1 minute)
+  })
+);
 export async function POST(request: Request) {
   const session = await requireAdmin(); // will not redirect, since this is an API route but will throw error if not admin
   try {

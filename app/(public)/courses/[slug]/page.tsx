@@ -164,7 +164,7 @@ const PublicCourseRoute = async ({ params }: { params: Params }) => {
                   <CollapsibleContent>
                     <div className="space-y-2 bg-background border-l border-r ">
                       {chapter.lessons.map((lesson) => (
-                        <div className="border-b">
+                        <div className="border-b" key={lesson.id}>
                           <div
                             key={lesson.id}
                             className="px-12 py-2 text-sm sm:text-base "
