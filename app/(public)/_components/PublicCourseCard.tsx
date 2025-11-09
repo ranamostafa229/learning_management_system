@@ -15,19 +15,19 @@ const PublicCourseCard = ({ data }: Props) => {
   const imageUrl = constructUrl(data.fileKey);
   return (
     <Card className="relative group py-0 gap-0 hover:cursor-pointer rounded-sm ">
-      <Badge className="absolute right-3 top-5 z-10  h-6 w-20 rounded-none font-bold uppercase">
+      <Badge className="absolute right-3 top-5 z-10  h-6 w-24 rounded-none font-bold uppercase">
         {data.level}
       </Badge>
       {/*  Triangle for badge */}
       <div
-        className=" absolute  top-5 right-20 mr-3 z-10
+        className=" absolute  top-5 right-24 mr-3 z-10
             border-t-[12px] border-b-[12px] border-r-[11px] 
             border-t-transparent border-b-transparent border-r-primary"
       />
       <Badge className="absolute right-5 bottom-28 rounded-sm bg-[#3E4143]/85 h-6 w-20 z-10">
         {data.duration} hours
       </Badge>
-      <div className="relative">
+      <Link href={`/courses/${data.slug}`} className="relative">
         <Image
           src={imageUrl}
           alt={`Thumbnail for course ${data.title}`}
@@ -42,7 +42,7 @@ const PublicCourseCard = ({ data }: Props) => {
         >
           <Play />
         </div>
-      </div>
+      </Link>
       <CardContent className="p-4">
         <Link
           href={`/courses/${data.slug}`}

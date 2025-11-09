@@ -8,10 +8,10 @@ const LayoutShared = async ({ children }: { children: ReactNode }) => {
     headers: await headers(),
   });
   return (
-    <div className="relative">
+    <>
       <Navbar session={session} />
-      {children}
-    </div>
+      <div>{children}</div>
+    </>
   );
 };
 

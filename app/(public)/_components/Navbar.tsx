@@ -7,6 +7,7 @@ import { ThemeToggle } from "@/components/ui/themeToggle";
 import { Session } from "@/lib/auth";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { use, useEffect, useState } from "react";
 
 const navigationItems = [
   { name: "Home", href: "/" },
@@ -18,9 +19,23 @@ const navigationItems = [
 const Navbar = ({ session }: { session: Session | null }) => {
   // const { data: session, isPending } = authClient.useSession();
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 left-0 z-10 items-center  w-full  ">
+    <header
+      className={cn(
+        "fixed top-0 w-full z-50 items-center ",
+        scrolled &&
+          pathname !== "/" && //[or] use bg-card
+          "dark:bg-gradient-to-b from-secondary to-background/100 dark:shadow-none bg-white shadow-sm "
+      )}
+    >
       <div
         className="container mx-auto flex  items-center justify-between py-4 px-4 
       lg:px-0"

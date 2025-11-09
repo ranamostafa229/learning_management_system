@@ -20,7 +20,6 @@ import { SortableItem } from "../SortableItem";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { AdminCourseSingularType } from "@/app/data/admin/admin-get-course";
 import { LayoutList } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import ChapterCard from "./ChapterCard";
 import { toast } from "sonner";
 import { reorderChapters, reorderLessons } from "../../actions";

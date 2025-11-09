@@ -49,7 +49,7 @@ const ActionButton = ({
 
 export const CourseTable = async ({ courses }: CourseTableProps) => {
   return (
-    <Table>
+    <Table className="table-fixed">
       <TableCaption>A list of your recent courses.</TableCaption>
       <TableHeader className="bg-sidebar-accent">
         <TableRow>
@@ -76,7 +76,9 @@ export const CourseTable = async ({ courses }: CourseTableProps) => {
                   className="rounded-md"
                 />
               </TableCell>
-              <TableCell>{course.title}</TableCell>
+              <TableCell className=" truncate max-w-xs">
+                {course.title}
+              </TableCell>
               <TableCell className="w-fit truncate">
                 {course.smallDescription}
               </TableCell>

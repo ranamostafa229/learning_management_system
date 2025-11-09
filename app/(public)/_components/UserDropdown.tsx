@@ -41,6 +41,7 @@ export default function UserDropdown({ session }: { session: Session | null }) {
                 `https://avatar.vercel.sh/${session?.user?.email}`
               }
               alt="Profile image"
+              suppressHydrationWarning
             />
             <AvatarFallback>
               {session?.user?.name && session?.user?.name.length > 0
