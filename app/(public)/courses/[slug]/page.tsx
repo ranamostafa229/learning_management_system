@@ -8,12 +8,12 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { constructUrl } from "@/hooks/use-construct-url";
-import { TabsContent } from "@radix-ui/react-tabs";
 import { IconBook, IconCategory, IconChartBar } from "@tabler/icons-react";
 import { Clock, TvMinimalPlay } from "lucide-react";
 import Image from "next/image";
+import { enrollInCourseAction } from "./actions";
 
 const BoxInfo = ({
   info,
@@ -38,6 +38,7 @@ const PublicCourseRoute = async ({ params }: { params: Params }) => {
   const { slug } = await params;
   const course = await getIndividualCourse(slug);
   const imageUrl = constructUrl(course.fileKey);
+
   return (
     <div className="relative top-20">
       <Card className="grid grid-cols-1 lg:grid-cols-3 px-10 border-card  rounded-sm">
@@ -58,19 +59,6 @@ const PublicCourseRoute = async ({ params }: { params: Params }) => {
               {course.smallDescription}
             </p>
             <Separator />
-            {/* <div className="space-y-1">
-              <div className="flex justify-between text-sm">
-                <span className="font-medium">Level:</span>
-                <span className="text-muted-foreground">{course.level}</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="font-medium">Language:</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="font-medium">Category:</span>
-                <span className="text-muted-foreground">{course.category}</span>
-              </div>
-            </div> */}
             <div className="flex justify-between">
               <h1 className="">Price</h1>
               <span className="font-medium text-xl text-primary">
@@ -83,7 +71,15 @@ const PublicCourseRoute = async ({ params }: { params: Params }) => {
               </span>
             </div>
             <div className="space-y-1">
-              <Button className="w-full">Enroll Now</Button>
+              <form
+                action={async () => {
+                  "use server";
+                  await enrollInCourseAction(course.id);
+                }}
+              >
+                <Button className="w-full">Enroll Now</Button>
+              </form>
+
               <span className="text-[12px] ">30-Day Money-Back Guarantee</span>
             </div>
           </div>
