@@ -1,6 +1,6 @@
 import { getIndividualCourse } from "@/app/data/course/get-course";
 import RenderDescription from "@/components/rich-text-editor/RenderDescription";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Collapsible,
@@ -76,7 +76,12 @@ const PublicCourseRoute = async ({ params }: { params: Params }) => {
             </div>
             <div className="space-y-1">
               {isEnrolled ? (
-                <Link href={`/dashboard`}>Watch Now</Link>
+                <Link
+                  href={`/dashboard`}
+                  className={buttonVariants({ className: "w-full" })}
+                >
+                  Watch Now
+                </Link>
               ) : (
                 <EnrollmentButton courseId={course.id} />
               )}
