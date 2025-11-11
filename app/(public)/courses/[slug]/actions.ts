@@ -1,14 +1,37 @@
 "use server";
 import { requireUser } from "@/app/data/user/require-user";
+import arcjet, { fixedWindow } from "@/lib/arcjet";
 import { prisma } from "@/lib/db";
+import { env } from "@/lib/env";
 import { stripe } from "@/lib/stripe";
 import { ApiResponse } from "@/lib/types";
+import { request } from "@arcjet/next";
+import { redirect } from "next/navigation";
+import Stripe from "stripe";
 
+const aj = arcjet.withRule(
+  fixedWindow({
+    mode: "LIVE",
+    window: "1m",
+    max: 5,
+  })
+);
 export async function enrollInCourseAction(
   courseId: string
-): Promise<ApiResponse> {
+): Promise<ApiResponse | never> {
   const user = await requireUser();
+  let checkoutUrl: string;
   try {
+    const req = await request();
+    const decision = await aj.protect(req, {
+      fingerprint: user.id,
+    });
+    if (decision.isDenied()) {
+      return {
+        status: "error",
+        message: "You have been blocked",
+      };
+    }
     const course = await prisma.course.findUnique({
       where: {
         id: courseId,
@@ -60,14 +83,82 @@ export async function enrollInCourseAction(
     console.log("Creating Stripe customer for user:", user.id);
     console.log("Created Stripe customer:", stripeCustomerId);
 
-    return {
-      status: "success",
-      message: "Stripe customer created",
-    };
-  } catch {
+    const result = await prisma.$transaction(async (tx) => {
+      const existingEnrollment = await tx.enrollment.findUnique({
+        where: {
+          userId_courseId: {
+            userId: user.id,
+            courseId: courseId,
+          },
+        },
+        select: {
+          status: true,
+          id: true,
+        },
+      });
+      if (existingEnrollment?.status === "Active") {
+        return {
+          status: "success",
+          message: "You are already enrolled in this course",
+        };
+      }
+      let enrollment;
+      if (existingEnrollment) {
+        enrollment = await tx.enrollment.update({
+          where: {
+            id: existingEnrollment.id,
+          },
+          data: {
+            status: "Pending",
+            updatedAt: new Date(),
+            amount: course.price,
+          },
+        });
+      } else {
+        enrollment = await tx.enrollment.create({
+          data: {
+            userId: user.id,
+            courseId: course.id,
+            amount: course.price,
+            status: "Pending",
+          },
+        });
+      }
+      const chekoutSession = await stripe.checkout.sessions.create({
+        customer: stripeCustomerId,
+        line_items: [
+          {
+            price: "price_1SS3nSAxPSkNQOqWmU2CrJ2q",
+            quantity: 1,
+          },
+        ],
+        mode: "payment",
+        success_url: `${env.BETTER_AUTH_URL}/payment/success`,
+        cancel_url: `${env.BETTER_AUTH_URL}/payment/cancel`,
+        metadata: {
+          userId: user.id,
+          courseId: course.id,
+          enrollmentId: enrollment.id,
+        },
+      });
+      return {
+        enrollment: enrollment,
+        checkoutUrl: chekoutSession.url,
+      };
+    });
+
+    checkoutUrl = result.checkoutUrl as string;
+  } catch (error) {
+    if (error instanceof Stripe.errors.StripeError) {
+      return {
+        status: "error",
+        message: "Payment system error, please try again later.",
+      };
+    }
     return {
       status: "error",
       message: "Failed to enroll in course",
     };
   }
+  redirect(checkoutUrl);
 }

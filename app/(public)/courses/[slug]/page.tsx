@@ -14,6 +14,9 @@ import { IconBook, IconCategory, IconChartBar } from "@tabler/icons-react";
 import { Clock, TvMinimalPlay } from "lucide-react";
 import Image from "next/image";
 import { enrollInCourseAction } from "./actions";
+import { checkIfCourseBought } from "@/app/data/user/user-is-enrolled";
+import Link from "next/link";
+import EnrollmentButton from "./_components/EnrollmentButton";
 
 const BoxInfo = ({
   info,
@@ -38,6 +41,7 @@ const PublicCourseRoute = async ({ params }: { params: Params }) => {
   const { slug } = await params;
   const course = await getIndividualCourse(slug);
   const imageUrl = constructUrl(course.fileKey);
+  const isEnrolled = await checkIfCourseBought(course.id);
 
   return (
     <div className="relative top-20">
@@ -71,14 +75,11 @@ const PublicCourseRoute = async ({ params }: { params: Params }) => {
               </span>
             </div>
             <div className="space-y-1">
-              <form
-                action={async () => {
-                  "use server";
-                  await enrollInCourseAction(course.id);
-                }}
-              >
-                <Button className="w-full">Enroll Now</Button>
-              </form>
+              {isEnrolled ? (
+                <Link href={`/dashboard`}>Watch Now</Link>
+              ) : (
+                <EnrollmentButton courseId={course.id} />
+              )}
 
               <span className="text-[12px] ">30-Day Money-Back Guarantee</span>
             </div>
