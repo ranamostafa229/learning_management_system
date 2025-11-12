@@ -95,6 +95,7 @@ model Course {
   category         String
   smallDescription String
   slug             String       @unique
+  stripPriceId     String       @unique
   status           CourseStatus @default(Draft)
   createdAt        DateTime     @default(now())
   updatedAt        DateTime     @updatedAt

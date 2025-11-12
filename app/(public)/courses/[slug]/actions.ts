@@ -41,6 +41,7 @@ export async function enrollInCourseAction(
         title: true,
         price: true,
         slug: true,
+        stripPriceId: true,
       },
     });
     if (!course) {
@@ -80,8 +81,6 @@ export async function enrollInCourseAction(
         },
       });
     }
-    console.log("Creating Stripe customer for user:", user.id);
-    console.log("Created Stripe customer:", stripeCustomerId);
 
     const result = await prisma.$transaction(async (tx) => {
       const existingEnrollment = await tx.enrollment.findUnique({
@@ -128,7 +127,7 @@ export async function enrollInCourseAction(
         customer: stripeCustomerId,
         line_items: [
           {
-            price: "price_1SS3nSAxPSkNQOqWmU2CrJ2q",
+            price: course.stripPriceId,
             quantity: 1,
           },
         ],
