@@ -7,7 +7,7 @@ import { ThemeToggle } from "@/components/ui/themeToggle";
 import { Session } from "@/lib/auth";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const navigationItems = [
   { name: "Home", href: "/" },
@@ -79,7 +79,7 @@ const Navbar = ({ session }: { session: Session | null }) => {
         <div className="flex items-center gap-4  ">
           <ThemeToggle />
           {session ? (
-            <UserDropdown session={session} />
+            <UserDropdown />
           ) : (
             <Link
               href="/login"

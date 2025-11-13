@@ -20,13 +20,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Session } from "@/lib/auth";
 import useSignout from "@/hooks/use-signout";
-
-export default function UserDropdown({ session }: { session: Session | null }) {
+import { authClient } from "@/lib/auth-client";
+// { session }: { session: Session | null }
+export default function UserDropdown() {
   const router = useRouter();
   const handleSignout = useSignout();
-
+  const { data: session } = authClient.useSession();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
