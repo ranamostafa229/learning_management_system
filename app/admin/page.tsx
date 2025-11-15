@@ -45,7 +45,7 @@ export default async function AdminIndexDashboard() {
 async function RenderRecentCourses() {
   const data = await adminGetRecentCourses();
 
-  if (data.length !== 0) {
+  if (data.length === 0) {
     return (
       <EmptyState
         description="No courses found. Create your first course to get started!"

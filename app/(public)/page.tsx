@@ -43,41 +43,6 @@ const Home = () => {
           VIEW ALL COURSES
         </Link>
       </div>
-      {/* <div className="flex gap-7 bottom-10 absolute">
-        <Card className="w-[300px] md:w-[350px] lg:w-[400px] bg-background/70 backdrop-blur-sm border-2 border-primary/20">
-          <CardHeader>
-            <CardTitle>
-              New Courses Coming Soon! Stay Tuned for Exciting Updates.
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            We are constantly adding new courses to our platform. Check back
-            regularly to explore the latest offerings and expand your knowledge!
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              New Courses Coming Soon! Stay Tuned for Exciting Updates.
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            We are constantly adding new courses to our platform. Check back
-            regularly to explore the latest offerings and expand your knowledge!
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>
-              New Courses Coming Soon! Stay Tuned for Exciting Updates.
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            We are constantly adding new courses to our platform. Check back
-            regularly to explore the latest offerings and expand your knowledge!
-          </CardContent>
-        </Card>
-      </div> */}
     </section>
   );
 };

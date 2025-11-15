@@ -43,7 +43,7 @@ export default CoursesPage;
 
 const RenderCourses = async () => {
   const courses = await adminGetCourses();
-  if (courses.length !== 0) {
+  if (courses.length === 0) {
     return (
       <EmptyState description="No courses found. Create your first course to get started!" />
     );
