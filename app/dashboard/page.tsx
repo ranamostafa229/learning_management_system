@@ -38,7 +38,7 @@ const DashboardPage = async () => {
         />
         {enrolledCourses.length === 0 ? (
           <EmptyState
-            description="No courses found. You have already purchased all avaliable courses"
+            description="No courses found. You haven't purchased any courses yet"
             buttonText={"Browse Courses"}
             href={"/courses"}
           />
@@ -62,7 +62,7 @@ const DashboardPage = async () => {
         />
         {filteredCourses.length === 0 ? (
           <EmptyState
-            description="No courses found. You haven't purchased any courses yet"
+            description="No courses found. You have already purchased all avaliable courses"
             buttonText={"Browse Courses"}
             href={"/courses"}
           />

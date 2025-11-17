@@ -16,7 +16,7 @@ const CourseDisplaylayout = async ({ children, params }: Props) => {
         <CourseSidebar course={data.course} />
       </div>
       {/* main content 70% */}
-      <div className="flex-1 overflow-hidden ">main content</div>
+      <div className="flex-1 overflow-hidden ">{children}</div>
     </div>
   );
 };

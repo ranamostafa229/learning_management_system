@@ -63,6 +63,7 @@ const LessonForm = ({
           : createLesson(values)
       );
       if (error) {
+        console.error(error);
         toast.error("An unexpected error occurred. Please try again.");
       }
       if (result?.status === "success") {
