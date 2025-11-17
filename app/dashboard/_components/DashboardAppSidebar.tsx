@@ -3,19 +3,15 @@
 import * as React from "react";
 import {
   IconCamera,
-  IconChartBar,
   IconDashboard,
   IconFileAi,
   IconFileDescription,
-  IconFolder,
   IconHelp,
   IconListDetails,
   IconSearch,
   IconSettings,
-  IconUsers,
 } from "@tabler/icons-react";
 
-import { NavDocuments } from "@/components/sidebar/nav-documents";
 import { NavMain } from "@/components/sidebar/nav-main";
 import { NavSecondary } from "@/components/sidebar/nav-secondary";
 import { NavUser } from "@/components/sidebar/nav-user";
@@ -49,21 +45,6 @@ const data = {
       url: "/admin/courses",
       icon: IconListDetails,
     },
-    // {
-    //   title: "Analytics",
-    //   url: "#",
-    //   icon: IconChartBar,
-    // },
-    // {
-    //   title: "Projects",
-    //   url: "#",
-    //   icon: IconFolder,
-    // },
-    // {
-    //   title: "Team",
-    //   url: "#",
-    //   icon: IconUsers,
-    // },
   ],
   navClouds: [
     {
@@ -130,23 +111,6 @@ const data = {
       icon: IconSearch,
     },
   ],
-  // documents: [
-  //   {
-  //     name: "Data Library",
-  //     url: "#",
-  //     icon: IconDatabase,
-  //   },
-  //   {
-  //     name: "Reports",
-  //     url: "#",
-  //     icon: IconReport,
-  //   },
-  //   {
-  //     name: "Word Assistant",
-  //     url: "#",
-  //     icon: IconFileWord,
-  //   },
-  // ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {

@@ -10,9 +10,10 @@ interface Props {
     id: string;
   };
   slug: string;
+  isActive?: boolean;
 }
-const LessonItem = ({ lesson, slug }: Props) => {
-  const completed = true;
+const LessonItem = ({ lesson, slug, isActive }: Props) => {
+  const completed = false;
   return (
     <Link
       href={`/dashboard/${slug}/${lesson.id}`}
@@ -21,7 +22,10 @@ const LessonItem = ({ lesson, slug }: Props) => {
         className: cn(
           "w-full h-auto justify-start transition-all p-2.5",
           completed &&
-            "!bg-green-100 dark:!bg-green-900/30 !border-green-300 dark:!border-green-900 hover:!bg-green-200 dark:hover:!bg-green-900/50 !text-green-900 dark:!text-green-200"
+            "!bg-green-100 dark:!bg-green-900/30 !border-green-300 dark:!border-green-900 hover:!bg-green-200 dark:hover:!bg-green-900/50 !text-green-900 dark:!text-green-200",
+          isActive &&
+            !completed &&
+            "bg-primary/10 dark:bg-primary/20 !border-primary/50 hover:bg-primary/20 dark:hover:bg-primary/30 text-primary"
         ),
       })}
     >
@@ -34,10 +38,18 @@ const LessonItem = ({ lesson, slug }: Props) => {
         ) : (
           <div
             className={cn(
-              "size-5 rounded-full bg-card dark:bg-background  flex justify-center items-center "
+              "size-5 rounded-full bg-card dark:bg-background  flex justify-center items-center border-2",
+              isActive
+                ? "!border-primary bg-primary/10 dark:bg-primary/20"
+                : "!border-muted-foreground/60"
             )}
           >
-            <Play className={cn("size-2.5 fill-current")} />
+            <Play
+              className={cn(
+                "size-2.5 fill-current",
+                isActive ? "text-primary" : "text-muted-foreground"
+              )}
+            />
           </div>
         )}
         {/* lesson title */}
@@ -45,11 +57,20 @@ const LessonItem = ({ lesson, slug }: Props) => {
           <p
             className={cn(
               "text-[13px] font-medium truncate",
-              completed && "text-green-800 dark:text-green-200"
+              completed
+                ? "text-green-800 dark:text-green-200"
+                : isActive
+                ? "text-primary font-semibold"
+                : "text-foreground"
             )}
           >
             {lesson.posititon}: {lesson.title}
           </p>
+          {isActive && !completed && (
+            <p className="text-[10px] text-primary font-medium">
+              Currently Watching
+            </p>
+          )}
         </div>
       </div>
     </Link>

@@ -1,3 +1,4 @@
+"use client";
 import { CourseSidebarDataType } from "@/app/data/course/get-course-sidebar-data";
 import { Button } from "@/components/ui/button";
 import { Collapsible } from "@/components/ui/collapsible";
@@ -8,11 +9,14 @@ import {
 } from "@radix-ui/react-collapsible";
 import { ChevronsDown, Play } from "lucide-react";
 import LessonItem from "./LessonItem";
+import { usePathname } from "next/navigation";
 
 interface Props {
   course: CourseSidebarDataType["course"];
 }
 const CourseSidebar = ({ course }: Props) => {
+  const pathname = usePathname();
+  const currentLessonId = pathname.split("/").pop(); // to get the last part of the url
   return (
     <div className="flex flex-col h-full">
       <div className="border-b border-border pb-4 pr-4 space-y-2">
@@ -71,6 +75,7 @@ const CourseSidebar = ({ course }: Props) => {
                   lesson={lesson}
                   slug={course.slug}
                   key={lesson.id}
+                  isActive={currentLessonId === lesson.id}
                 />
               ))}
             </CollapsibleContent>
