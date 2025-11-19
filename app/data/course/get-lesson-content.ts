@@ -1,3 +1,4 @@
+import "server-only";
 import { prisma } from "@/lib/db";
 import { requireUser } from "../user/require-user";
 import { notFound } from "next/navigation";
@@ -16,9 +17,23 @@ export async function getLessonContent(lessonId: string) {
       thumbnailKey: true,
       videoKey: true,
       posititon: true,
+      lessonProgress: {
+        where: {
+          userId: session.id,
+        },
+        select: {
+          lessonId: true,
+          completed: true,
+        },
+      },
       Chapter: {
         select: {
           courseId: true,
+          Course: {
+            select: {
+              slug: true,
+            },
+          },
         },
       },
     },
