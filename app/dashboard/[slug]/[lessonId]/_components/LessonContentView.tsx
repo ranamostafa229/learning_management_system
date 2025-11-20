@@ -35,7 +35,7 @@ const LessonContentView = ({ data }: Props) => {
   };
 
   return (
-    <div className="flex flex-col h-full bg-background pl-6 gap-2">
+    <div className="flex flex-col h-full bg-background pl-1 lg:pl-6 gap-2">
       <h1 className="text-2xl font-bold tracking-tight text-foreground pb-1">
         {data.title}
       </h1>
