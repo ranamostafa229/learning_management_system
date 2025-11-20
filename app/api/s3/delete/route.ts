@@ -16,7 +16,7 @@ export async function DELETE(request: Request) {
   const session = await requireAdmin(); // will not redirect, since this is an API route but will throw error if not admin
   try {
     const decision = await aj.protect(request, {
-      fingerprint: session?.user?.id!,
+      fingerprint: session.user.id!,
     });
     if (decision.isDenied()) {
       return NextResponse.json(
@@ -42,6 +42,7 @@ export async function DELETE(request: Request) {
       status: 200,
     });
   } catch (error) {
+    console.error(error);
     return NextResponse.json(
       { error: "Failed to delete file" },
       { status: 500 }

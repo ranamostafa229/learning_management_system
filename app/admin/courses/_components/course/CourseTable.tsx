@@ -1,7 +1,4 @@
-import {
-  AdminCourseType,
-  adminGetCourses,
-} from "@/app/data/admin/admin-get-courses";
+import { AdminCourseType } from "@/app/data/admin/admin-get-courses";
 import { buttonVariants } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import {

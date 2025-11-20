@@ -11,12 +11,7 @@ type Props = {
   height?: string;
 };
 
-const RichTextEditor = ({
-  onChange,
-  initialContent = "",
-  placeholder = "Start typing...",
-  height,
-}: Props) => {
+const RichTextEditor = ({ onChange, initialContent = "", height }: Props) => {
   const editor = useEditor({
     extensions: [
       StarterKit,

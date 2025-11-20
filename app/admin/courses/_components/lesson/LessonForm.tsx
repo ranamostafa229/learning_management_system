@@ -68,8 +68,8 @@ const LessonForm = ({
       }
       if (result?.status === "success") {
         toast.success(result.message);
-        action === "edit" && router.push(`/admin/courses/${courseId}/edit`);
-        if (action === "create") {
+        if (action === "edit") router.push(`/admin/courses/${courseId}/edit`);
+        else if (action === "create") {
           form.reset();
           openModal?.(false);
         }

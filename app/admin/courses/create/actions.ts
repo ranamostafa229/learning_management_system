@@ -24,7 +24,7 @@ export async function CreateCourse(
     // but in server actions we don't but arcjet created a helper function request
     const req = await request();
     const decision = await aj.protect(req, {
-      fingerprint: session?.user?.id!,
+      fingerprint: session.user.id!,
     });
     if (decision.isDenied()) {
       if (decision.reason.isRateLimit()) {

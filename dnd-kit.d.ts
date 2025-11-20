@@ -4,7 +4,7 @@ declare module "@dnd-kit/sortable" {
   interface SortableContextProps {
     children: React.ReactNode;
     items: string[];
-    strategy?: any;
+    strategy?: "vertical" | "horizontal";
     id?: string;
     disabled?: boolean;
   }

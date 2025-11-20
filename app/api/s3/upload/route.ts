@@ -18,7 +18,7 @@ export async function POST(request: Request) {
   const session = await requireAdmin(); // will not redirect, since this is an API route but will throw error if not admin
   try {
     const decision = await aj.protect(request, {
-      fingerprint: session?.user?.id!,
+      fingerprint: session.user.id!,
     });
     if (decision.isDenied()) {
       if (decision.reason.isRateLimit()) {

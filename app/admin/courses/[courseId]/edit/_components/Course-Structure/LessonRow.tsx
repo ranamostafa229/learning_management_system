@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { DraggableSyntheticListeners } from "@dnd-kit/core";
-import { FileText, GripVertical, Trash2 } from "lucide-react";
+import { FileText, GripVertical } from "lucide-react";
 import Link from "next/link";
 import DeleteLesson from "./DeleteLesson";
 

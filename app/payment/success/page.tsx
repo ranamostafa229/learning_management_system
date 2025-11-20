@@ -10,7 +10,7 @@ const PaymentSuccessful = () => {
   const { triggerConfetti } = useConfetti();
   useEffect(() => {
     triggerConfetti();
-  }, []);
+  }, [triggerConfetti]);
   return (
     <div className="flex flex-1 min-h-screen w-full justify-center items-center">
       <Card className="w-[520px]">

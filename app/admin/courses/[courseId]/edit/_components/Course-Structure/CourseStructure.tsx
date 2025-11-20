@@ -15,7 +15,7 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { SortableItem } from "../SortableItem";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { AdminCourseSingularType } from "@/app/data/admin/admin-get-course";

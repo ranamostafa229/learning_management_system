@@ -13,7 +13,6 @@ import { constructUrl } from "@/hooks/use-construct-url";
 import { IconBook, IconCategory, IconChartBar } from "@tabler/icons-react";
 import { Clock, TvMinimalPlay } from "lucide-react";
 import Image from "next/image";
-import { enrollInCourseAction } from "./actions";
 import { checkIfCourseBought } from "@/app/data/user/user-is-enrolled";
 import Link from "next/link";
 import EnrollmentButton from "./_components/EnrollmentButton";

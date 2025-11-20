@@ -68,6 +68,7 @@ export async function editCourse(
       message: "Course updated successfully",
     };
   } catch (error) {
+    console.error(error);
     return {
       status: "error",
       message: "Failed to update course. Please try again.",

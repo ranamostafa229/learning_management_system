@@ -131,7 +131,7 @@ interface ChartAreaInteractiveProps {
 export function ChartAreaInteractive({ data }: ChartAreaInteractiveProps) {
   const totalEnrollmentsNumber = useMemo(
     () => data.reduce((acc, curr) => acc + curr.enrollments, 0),
-    []
+    [data]
   );
   return (
     <Card className="@container/card">

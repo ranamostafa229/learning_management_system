@@ -115,7 +115,7 @@ export default function Uploader({
           xhr.setRequestHeader("Content-Type", file.type);
           xhr.send(file);
         });
-      } catch (error: any) {
+      } catch {
         toast.error("Something went wrong during uploading file.");
         setFileState((prev) => ({
           ...prev,
@@ -202,7 +202,7 @@ export default function Uploader({
         fileType: fileTypeAccepted,
       });
       toast.success("File removed successfully");
-    } catch (error) {
+    } catch {
       toast.error("Something went wrong, Please try.");
       setFileState((prev) => ({
         ...prev,
