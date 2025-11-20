@@ -1,30 +1,34 @@
-import { PublicCourseType } from "@/app/data/course/get-all-courses";
+"use client";
+import { EnrolledCourseType } from "@/app/data/user/get-enrolled-courses";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Progress } from "@/components/ui/progress";
 import { constructUrl } from "@/hooks/use-construct-url";
+import { useCourseProgress } from "@/hooks/use-course-progress";
 import { Play } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 interface Props {
-  data: PublicCourseType;
+  data: EnrolledCourseType["course"];
 }
 
-const PublicCourseCard = ({ data }: Props) => {
+const CourseProgressCard = ({ data }: Props) => {
   const imageUrl = constructUrl(data.fileKey);
+  const { totalLessons, completedLessons, progressPercentage } =
+    useCourseProgress({ courseData: data });
   return (
     <Card className="relative group py-0 gap-0 hover:cursor-pointer rounded-sm ">
       <Badge className="absolute right-3 top-5 z-10  h-6 w-24 rounded-none font-bold uppercase">
         {data.level}
       </Badge>
-      {/*  Triangle for badge */}
+      {/*  Triangle for level badge */}
       <div
         className=" absolute  top-5 right-24 mr-3 z-10
             border-t-[12px] border-b-[12px] border-r-[11px] 
             border-t-transparent border-b-transparent border-r-primary"
       />
-      <Link href={`/courses/${data.slug}`} className="relative">
+      <Link href={`/dashboard/${data.slug}`} className="relative">
         <Image
           src={imageUrl}
           alt={`Thumbnail for course ${data.title}`}
@@ -39,51 +43,31 @@ const PublicCourseCard = ({ data }: Props) => {
         >
           <Play />
         </div>
+        {/* duration badge */}
         <Badge className="absolute right-5 bottom-5 rounded-sm bg-[#3E4143]/85 h-6 w-20 z-10">
           {data.duration} hours
         </Badge>
       </Link>
       <CardContent className="p-4">
         <Link
-          href={`/courses/${data.slug}`}
+          href={`/dashboard/${data.slug}`}
           className="font-medium text-lg line-clamp-2 group-hover:text-primary transition-colors"
         >
           {data.title}
         </Link>
-        <div className="flex items-center justify-between">
-          <span className="text-muted-foreground text-sm">{data.category}</span>
-          <span className="text-lg font-medium">${data.price}</span>
+        <div className="space-y-2 mt-2">
+          <div className="flex justify-between text-sm">
+            <p>Progress:</p>
+            <p className="font-medium">{progressPercentage}%</p>
+          </div>
+          <Progress value={progressPercentage} className="h-1.5" />
+          <p className="text-xs text-muted-foreground">
+            {completedLessons} of {totalLessons} lessons completed
+          </p>
         </div>
       </CardContent>
     </Card>
   );
 };
 
-export default PublicCourseCard;
-
-export const PublicCourseCardSkeleton = () => {
-  return (
-    <Card className="relative group py-0 gap-0  rounded-sm ">
-      <Skeleton className="absolute right-3 top-5 z-10  h-6 w-20" />
-      {/*  Triangle for badge */}
-      <div
-        className=" absolute  top-5 right-20 mr-3 z-10
-            border-t-[12px] border-b-[12px] border-r-[11px] 
-            border-t-transparent border-b-transparent dark:border-r-border/60 border-r-accent"
-      />
-
-      <Skeleton className="absolute right-5 bottom-28 rounded-sm dark:bg-[#3E4143]/85 bg-accent h-6 w-20 z-10" />
-      <div className="relative p-3">
-        <Skeleton className="w-full h-48 p-3 rounded-t-xl  " />
-      </div>
-      <CardContent className="p-4 space-y-3">
-        <Skeleton className="w-36 h-7" />
-
-        <div className="flex items-center justify-between">
-          <Skeleton className="w-16 h-5" />
-          <Skeleton className="w-16 h-5" />
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
+export default CourseProgressCard;

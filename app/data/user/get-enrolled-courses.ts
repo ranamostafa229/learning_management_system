@@ -19,12 +19,26 @@ export async function getEnrolledCourses() {
           level: true,
           slug: true,
           price: true,
+          category: true,
+          duration: true,
           chapter: {
             select: {
               id: true,
+              title: true,
+              position: true,
               lessons: {
                 select: {
                   id: true,
+                  lessonProgress: {
+                    where: {
+                      userId: user.id,
+                    },
+                    select: {
+                      completed: true,
+                      id: true,
+                      lessonId: true,
+                    },
+                  },
                 },
               },
             },
@@ -35,3 +49,7 @@ export async function getEnrolledCourses() {
   });
   return data;
 }
+
+export type EnrolledCourseType = Awaited<
+  ReturnType<typeof getEnrolledCourses>
+>[0];
