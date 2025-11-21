@@ -14,7 +14,6 @@ const navigationItems = [
   { name: "Courses", href: "/courses" },
   { name: "Dashboard", href: "/dashboard" },
   { name: "About", href: "/about" },
-  // { name: "Contact", href: "/contact" },
 ];
 const Navbar = ({ session }: { session: Session | null }) => {
   // const { data: session, isPending } = authClient.useSession();
