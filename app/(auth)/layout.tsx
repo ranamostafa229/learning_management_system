@@ -19,13 +19,25 @@ const AuthLayout = ({ children }: { children: ReactNode }) => {
           href="/"
           className="hidden dark:flex absolute top-24  self-center mr-5 "
         >
-          <Image src={"/logo.svg"} alt="logo" width={135} height={30} />
+          <Image
+            src={"/logo.svg"}
+            alt="logo"
+            width={135}
+            height={30}
+            priority
+          />
         </Link>
         <Link
           href="/"
           className="flex dark:hidden absolute top-24  self-center mr-5 "
         >
-          <Image src="/logoblack.svg" alt="logo" width={135} height={30} />
+          <Image
+            src="/logoblack.svg"
+            alt="logo"
+            width={135}
+            height={30}
+            priority
+          />
         </Link>
         {children}
       </div>

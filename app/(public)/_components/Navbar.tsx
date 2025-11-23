@@ -13,7 +13,7 @@ const navigationItems = [
   { name: "Home", href: "/" },
   { name: "Courses", href: "/courses" },
   { name: "Dashboard", href: "/dashboard" },
-  { name: "About", href: "/about" },
+  // { name: "About", href: "/about" },
 ];
 const Navbar = ({ session }: { session: Session | null }) => {
   // const { data: session, isPending } = authClient.useSession();
@@ -59,12 +59,21 @@ const Navbar = ({ session }: { session: Session | null }) => {
           />
         </Link>
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex ml-0 lg:ml-6  ">
+        <nav
+          className={cn(
+            "hidden lg:flex ml-0  ",
+            session ? "lg:ml-4" : "lg:ml-20"
+          )}
+        >
           <div className=" flex items-baseline space-x-8">
             {navigationItems.map((item) => (
               <Link
                 key={item.name}
-                href={item.href}
+                href={
+                  item.href === "/dashboard" && session?.user.role === "admin"
+                    ? "/admin"
+                    : item.href
+                }
                 className={cn(
                   "text-md font-medium  hover:text-primary",
                   pathname === "/" && "text-white"

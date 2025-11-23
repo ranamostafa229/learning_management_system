@@ -78,7 +78,9 @@ export default function UserDropdown() {
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild className="cursor-pointer">
-            <Link href="/dashboard">
+            <Link
+              href={session?.user?.role === "admin" ? "/admin" : "/dashboard"}
+            >
               <LayoutDashboardIcon
                 size={16}
                 className="opacity-60"
