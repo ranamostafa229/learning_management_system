@@ -1,8 +1,15 @@
-import { getAllCourses } from "@/app/data/course/get-all-courses";
+import {
+  getAllCourses,
+  getAllCoursesForUser,
+  PublicCourseType,
+  PublicCourseTypeWithSaved,
+} from "@/app/data/course/get-all-courses";
 import PublicCourseCard, {
   PublicCourseCardSkeleton,
 } from "../_components/PublicCourseCard";
 import { Suspense } from "react";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const PublicCoursesRoute = () => {
   return (
@@ -26,11 +33,17 @@ const PublicCoursesRoute = () => {
 
 export default PublicCoursesRoute;
 const RenderCourses = async () => {
-  const courses = await getAllCourses();
+  const publicCourses = await getAllCourses();
+  const userCourses = await getAllCoursesForUser();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  const courses = session?.user.id ? userCourses : publicCourses;
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-10  gap-6 justify-center">
       {courses.map((course) => (
-        <PublicCourseCard key={course.id} data={course} />
+        <PublicCourseCard key={course.id} data={course} saved={course.saved} />
       ))}
     </div>
   );

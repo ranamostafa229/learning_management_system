@@ -1,5 +1,6 @@
 import "server-only";
 import { prisma } from "@/lib/db";
+import { requireUser } from "../user/require-user";
 
 export async function getAllCourses() {
   // await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -22,7 +23,47 @@ export async function getAllCourses() {
       createdAt: "desc",
     },
   });
-  return data;
+  return data.map((course) => ({
+    ...course,
+    saved: false,
+  }));
+}
+export async function getAllCoursesForUser() {
+  const session = await requireUser();
+  const data = await prisma.course.findMany({
+    where: {
+      status: "Published",
+    },
+    select: {
+      id: true,
+      title: true,
+      smallDescription: true,
+      duration: true,
+      level: true,
+      category: true,
+      price: true,
+      fileKey: true,
+      slug: true,
+      savedCourses: {
+        where: {
+          userId: session.id,
+        },
+        select: {
+          id: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  return data.map((course) => ({
+    ...course,
+    saved: course.savedCourses.length > 0,
+  }));
 }
 
 export type PublicCourseType = Awaited<ReturnType<typeof getAllCourses>>[0];
+export type PublicCourseTypeWithSaved = Awaited<
+  ReturnType<typeof getAllCoursesForUser>
+>[0];

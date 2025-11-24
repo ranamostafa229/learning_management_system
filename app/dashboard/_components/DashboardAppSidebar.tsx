@@ -40,8 +40,8 @@ const data = {
       icon: IconDashboard,
     },
     {
-      title: "Courses",
-      url: "/admin/courses",
+      title: "Saved Courses",
+      url: "/dashboard/saved-courses",
       icon: IconListDetails,
     },
   ],
