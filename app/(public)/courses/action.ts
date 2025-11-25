@@ -3,9 +3,11 @@
 import { requireUser } from "@/app/data/user/require-user";
 import { prisma } from "@/lib/db";
 import { ApiResponse } from "@/lib/types";
+import { revalidatePath } from "next/cache";
 
 export async function ToggleSavedCourses(
-  courseId: string
+  courseId: string,
+  revalidate?: string
 ): Promise<ApiResponse> {
   const session = await requireUser();
   try {
@@ -26,6 +28,10 @@ export async function ToggleSavedCourses(
           },
         },
       });
+      if (revalidate) {
+        // to update the cache on the client when a course is removed from saved courses
+        revalidatePath(revalidate);
+      }
       return {
         status: "success",
         message: "Course removed from saved successfully",
