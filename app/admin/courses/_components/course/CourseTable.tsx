@@ -46,7 +46,7 @@ const ActionButton = ({
 
 export const CourseTable = async ({ courses }: CourseTableProps) => {
   return (
-    <Table className="table-fixed">
+    <Table className="table-fixed min-w-[900px] md:w-full">
       <TableCaption>A list of your recent courses.</TableCaption>
       <TableHeader className="bg-sidebar-accent">
         <TableRow>
