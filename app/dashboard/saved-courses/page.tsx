@@ -3,8 +3,8 @@ import {
   getSavedCourses,
   SavedCoursesType,
 } from "@/app/data/user/get-saved-courses";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import RemoveAllCourses from "./_components/RemoveAllCourses";
 
 const SavedCourses = async () => {
   const courses = await getSavedCourses();
@@ -17,7 +17,8 @@ const SavedCourses = async () => {
           <span>{courses.length} Courses</span>
         </div>
         <Separator className="bg-border dark:bg-white" />
-        <Button> Remove All Courses</Button>
+        {/* <Button> Remove All Courses</Button> */}
+        <RemoveAllCourses />
       </div>
       <RenderSavedCourses courses={courses} />
     </section>
