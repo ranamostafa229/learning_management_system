@@ -1,21 +1,10 @@
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { tryCatch } from "@/hooks/try-catch";
 import { Trash2 } from "lucide-react";
 import { useState, useTransition } from "react";
 import { deleteLesson } from "../../actions";
 import { toast } from "sonner";
+import ConfirmDialog from "@/components/general/ConfirmDialog";
 
 interface Props {
   courseId: string;
@@ -47,29 +36,21 @@ const DeleteLesson = ({ courseId, chapterId, lessonId }: Props) => {
   };
 
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger asChild>
+    <ConfirmDialog
+      title="Are you absolutely sure?"
+      description="This action cannot be undone. This will permanently delete your
+            lesson."
+      confirmText={pending ? "Deleting..." : "Delete"}
+      onConfirm={onSubmit}
+      confirmDisabled={pending}
+      open={open}
+      setOpen={setOpen}
+      trigger={
         <Button variant={"ghost"} size={"icon"} className="cursor-pointer">
           <Trash2 className="size-4" />
         </Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <Separator />
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            lesson.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={onSubmit} disabled={pending}>
-            {pending ? "Deleting..." : "Delete"}
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+      }
+    />
   );
 };
 
