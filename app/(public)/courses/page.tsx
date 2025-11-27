@@ -1,8 +1,6 @@
 import {
   getAllCourses,
   getAllCoursesForUser,
-  PublicCourseType,
-  PublicCourseTypeWithSaved,
 } from "@/app/data/course/get-all-courses";
 import PublicCourseCard, {
   PublicCourseCardSkeleton,
@@ -33,11 +31,12 @@ const PublicCoursesRoute = () => {
 
 export default PublicCoursesRoute;
 const RenderCourses = async () => {
-  const publicCourses = await getAllCourses();
-  const userCourses = await getAllCoursesForUser();
   const session = await auth.api.getSession({
     headers: await headers(),
   });
+  const publicCourses = await getAllCourses();
+  const userCourses = await getAllCoursesForUser(session?.user.id || "");
+
   const courses = session?.user.id ? userCourses : publicCourses;
 
   return (

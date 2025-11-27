@@ -31,8 +31,9 @@ const Navbar = ({ session }: { session: Session | null }) => {
       className={cn(
         "fixed top-0 w-full z-50 items-center ",
         scrolled &&
-          pathname !== "/" && //[or] use bg-card
+          // pathname !== "/" && //[or] use bg-card
           "dark:bg-gradient-to-b from-secondary to-background/100 dark:shadow-none bg-white shadow-sm "
+        // : scrolled && "dark:bg-card bg-card dark:shadow-none shadow-sm "
       )}
     >
       <div
@@ -47,7 +48,7 @@ const Navbar = ({ session }: { session: Session | null }) => {
             height={50}
             className={cn(
               "w-32 hidden dark:block",
-              pathname === "/" && "block"
+              pathname === "/" && !scrolled && "block"
             )}
           />
           <Image
@@ -55,7 +56,10 @@ const Navbar = ({ session }: { session: Session | null }) => {
             alt="logo"
             width={100}
             height={50}
-            className={cn("w-32 dark:hidden", pathname === "/" && "hidden")}
+            className={cn(
+              "w-32 dark:hidden",
+              pathname === "/" && !scrolled ? "hidden" : "block"
+            )}
           />
         </Link>
         {/* Desktop Navigation */}
@@ -76,7 +80,7 @@ const Navbar = ({ session }: { session: Session | null }) => {
                 }
                 className={cn(
                   "text-md font-medium  hover:text-primary",
-                  pathname === "/" && "text-white"
+                  pathname === "/" && !scrolled && "text-white"
                 )}
               >
                 {item.name}

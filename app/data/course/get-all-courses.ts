@@ -1,6 +1,5 @@
 import "server-only";
 import { prisma } from "@/lib/db";
-import { requireUser } from "../user/require-user";
 
 export async function getAllCourses() {
   // await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -28,8 +27,7 @@ export async function getAllCourses() {
     saved: false,
   }));
 }
-export async function getAllCoursesForUser() {
-  const session = await requireUser();
+export async function getAllCoursesForUser(userId: string) {
   const data = await prisma.course.findMany({
     where: {
       status: "Published",
@@ -46,7 +44,7 @@ export async function getAllCoursesForUser() {
       slug: true,
       savedCourses: {
         where: {
-          userId: session.id,
+          userId,
         },
         select: {
           id: true,

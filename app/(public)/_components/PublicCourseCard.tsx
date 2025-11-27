@@ -99,7 +99,7 @@ const PublicCourseCard = ({
           </Link>
           <Button
             className={cn(
-              "relative flex size-7 rounded-sm bg-accent items-center justify-center cursor-pointer  z-10",
+              " flex size-7 rounded-sm bg-accent items-center justify-center cursor-pointer  text-muted-foreground  hover:!text-white dark:text-white transition-colors ",
               savedCourse && "bg-primary"
             )}
             disabled={pending}
@@ -107,7 +107,7 @@ const PublicCourseCard = ({
           >
             <BookmarkPlus
               size={17}
-              className="absolute text-white hover:text-primary transition-colors"
+              className={cn(savedCourse && "text-white")}
               aria-label="Add to bookmarks"
             />
           </Button>
