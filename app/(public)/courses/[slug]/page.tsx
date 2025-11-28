@@ -43,7 +43,7 @@ const PublicCourseRoute = async ({ params }: { params: Params }) => {
   const isEnrolled = await checkIfCourseBought(course.id);
 
   return (
-    <div className="relative top-20">
+    <div className="mt-16">
       <Card className="grid grid-cols-1 lg:grid-cols-3 px-10 border-card  rounded-sm">
         <div className="relative aspect-video w-full overflow-hidden rounded-lg">
           <Image

@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import Navbar from "./_components/Navbar";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
+import Footer from "./_components/Footer";
 
 const LayoutShared = async ({ children }: { children: ReactNode }) => {
   const session = await auth.api.getSession({
@@ -10,7 +11,8 @@ const LayoutShared = async ({ children }: { children: ReactNode }) => {
   return (
     <>
       <Navbar session={session} />
-      <div>{children}</div>
+      <div className="flex flex-col min-h-screen">{children}</div>
+      <Footer />
     </>
   );
 };

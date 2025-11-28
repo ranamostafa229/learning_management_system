@@ -11,7 +11,7 @@ import { headers } from "next/headers";
 
 const PublicCoursesRoute = () => {
   return (
-    <div className="relative top-16 container mx-auto pt-10 px-4 lg:px-0">
+    <div className="mt-16 container mx-auto pt-10 px-4 lg:px-0">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl md:text-4xl font-bold tracking-tighter">
           Explore Courses

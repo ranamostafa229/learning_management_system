@@ -16,7 +16,6 @@ const navigationItems = [
   // { name: "About", href: "/about" },
 ];
 const Navbar = ({ session }: { session: Session | null }) => {
-  // const { data: session, isPending } = authClient.useSession();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
 
