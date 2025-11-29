@@ -15,6 +15,7 @@ export const courseCategories = [
   "Office Productivity",
 ] as const;
 
+type RichTextNode = string | { text?: string; content?: RichTextNode[] };
 export const courseSchema = z.object({
   title: z
     .string()
@@ -29,7 +30,7 @@ export const courseSchema = z.object({
       try {
         const parsed = JSON.parse(val);
         // Extract text content from the rich text JSON structure
-        const extractText = (node: any): string => {
+        const extractText = (node: RichTextNode): string => {
           if (typeof node === "string") return node;
           if (typeof node === "object" && node !== null) {
             if (node.text) return node.text;
