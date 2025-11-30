@@ -3,10 +3,15 @@ import { getAllCoursesForUser } from "../data/course/get-all-courses";
 import { getEnrolledCourses } from "../data/user/get-enrolled-courses";
 import PublicCourseCard from "../(public)/_components/PublicCourseCard";
 import CourseProgressCard from "./_components/CourseProgressCard";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const DashboardPage = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
   const [courses, enrolledCourses] = await Promise.all([
-    getAllCoursesForUser(),
+    getAllCoursesForUser(session?.user.id || ""),
     getEnrolledCourses(),
   ]);
   // filter out enrolled courses
