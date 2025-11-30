@@ -14,9 +14,16 @@ import {
 } from "@/components/ui/input-otp";
 import { authClient } from "@/lib/auth-client";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, useTransition } from "react";
+import { Suspense, useState, useTransition } from "react";
 import { toast } from "sonner";
 
+export default function VerifyRequestPage() {
+  return (
+    <Suspense>
+      <VerifyRequest />
+    </Suspense>
+  );
+}
 const VerifyRequest = () => {
   const router = useRouter();
   const [otp, setOtp] = useState("");
@@ -88,5 +95,3 @@ const VerifyRequest = () => {
     </Card>
   );
 };
-
-export default VerifyRequest;
