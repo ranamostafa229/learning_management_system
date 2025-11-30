@@ -57,7 +57,7 @@ const AdminViewCourse = async ({ params }: { params: Params }) => {
               {course.smallDescription}
             </p>
             <Separator />
-            <div className="flex justify-between">
+            <div className="flex justify-between w-80 ">
               <h1 className="">Price</h1>
               <span className="font-medium text-xl text-primary">
                 {course.price === 0
