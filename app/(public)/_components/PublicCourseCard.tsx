@@ -64,7 +64,7 @@ const PublicCourseCard = ({
           width={600}
           height={400}
           className={cn(
-            " p-3 rounded-t-xl",
+            "aspect-video p-3 rounded-t-xl",
             orientation === "horizontal" && "w-full h-48",
             orientation === "vertical" && "w-full h-full  object-cover"
           )}
