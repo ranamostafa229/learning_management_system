@@ -27,7 +27,7 @@ export async function POST(req: Request) {
   if (event.type === "checkout.session.completed") {
     const courseId = session.metadata?.courseId as string;
     const customerId = session.customer as string;
-
+    const enrollmentId = session.metadata?.enrollmentId as string;
     if (!courseId) {
       throw new Error("Course is not found");
     }
@@ -42,7 +42,7 @@ export async function POST(req: Request) {
     }
     await prisma.enrollment.update({
       where: {
-        id: session.metadata?.enrollmentId as string,
+        id: enrollmentId,
       },
       data: {
         userId: user.id,

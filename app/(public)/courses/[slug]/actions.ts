@@ -7,6 +7,7 @@ import { stripe } from "@/lib/stripe";
 import { ApiResponse } from "@/lib/types";
 import { request } from "@arcjet/next";
 import { redirect } from "next/navigation";
+import Stripe from "stripe";
 
 const aj = arcjet.withRule(
   fixedWindow({
@@ -147,7 +148,7 @@ export async function enrollInCourseAction(
 
     checkoutUrl = result.checkoutUrl as string;
   } catch (error) {
-    if (error instanceof stripe.errors.StripeError) {
+    if (error instanceof Stripe.errors.StripeError) {
       return {
         status: "error",
         message: "Payment system error, please try again later.",

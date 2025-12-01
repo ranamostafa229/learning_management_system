@@ -8,8 +8,8 @@ const CourseDisplayRoute = async ({ params }: Props) => {
   const { slug } = await params;
   const data = await getCourseSidebarData(slug);
 
-  const firstChapter = data.course.chapter[0];
-  const firstLesson = firstChapter.lessons[0];
+  const firstChapter = data?.course?.chapter[0];
+  const firstLesson = firstChapter?.lessons[0];
 
   if (firstLesson) {
     redirect(`/dashboard/${slug}/${firstLesson.id}`);
