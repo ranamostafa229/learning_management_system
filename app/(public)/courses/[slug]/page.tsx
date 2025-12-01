@@ -152,11 +152,13 @@ const PublicCourseRoute = async ({ params }: { params: Params }) => {
                 >
                   <CollapsibleTrigger>
                     <CardContent className="flex justify-between items-center py-2 text-left font-medium hover:cursor-pointer hover:bg-accent/50 transition-colors">
-                      <h3 className="flex items-center gap-2 text-sm sm:text-base">
-                        <TvMinimalPlay size={18} />
-                        {chapter.title}
-                      </h3>
-                      <span className="text-muted-foreground text-sm sm:text-base min-w-20 text-center">
+                      <div className="flex items-center gap-2 ">
+                        <TvMinimalPlay className="size-4 sm:size-5 flex-shrink-0" />
+                        <h3 className="text-xs sm:text-base">
+                          {chapter.title}
+                        </h3>
+                      </div>
+                      <span className="text-muted-foreground text-xs sm:text-base min-w-20 text-right">
                         {chapter.lessons.length} Lesson
                         {chapter.lessons.length > 1 && "s"}
                       </span>
