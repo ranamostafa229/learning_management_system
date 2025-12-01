@@ -49,6 +49,7 @@ const Navbar = ({ session }: { session: Session | null }) => {
               "w-32 hidden dark:block",
               pathname === "/" && !scrolled && "block"
             )}
+            priority
           />
           <Image
             src="/logoblack.svg"
@@ -59,6 +60,7 @@ const Navbar = ({ session }: { session: Session | null }) => {
               "w-32 dark:hidden",
               pathname === "/" && !scrolled ? "hidden" : "block"
             )}
+            priority
           />
         </Link>
         {/* Desktop Navigation */}
