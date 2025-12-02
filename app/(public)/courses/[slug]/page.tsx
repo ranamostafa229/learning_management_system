@@ -128,11 +128,11 @@ const PublicCourseRoute = async ({ params }: { params: Params }) => {
           </TabsTrigger>
         </TabsList>
         {/* About content */}
-        <TabsContent value="About" className="ps-6">
+        <TabsContent value="About" className="ps-3 md:ps-6">
           <RenderDescription json={JSON.parse(course.description)} />
         </TabsContent>
         {/* Course content */}
-        <TabsContent value="Course Content" className="p-9 ps-16 ">
+        <TabsContent value="Course Content" className="p-9 md:ps-16 ">
           <div className="flex justify-between">
             <h1 className="text-xl font-medium">Course content</h1>
             <span className="text-sm text-muted-foreground font-medium">
@@ -154,7 +154,7 @@ const PublicCourseRoute = async ({ params }: { params: Params }) => {
                     <CardContent className="flex justify-between items-center py-2 text-left font-medium hover:cursor-pointer hover:bg-accent/50 transition-colors">
                       <div className="flex items-center gap-2 ">
                         <TvMinimalPlay className="size-4 sm:size-5 flex-shrink-0" />
-                        <h3 className="text-xs sm:text-base">
+                        <h3 className="text-xs sm:text-sm md:text-base">
                           {chapter.title}
                         </h3>
                       </div>
@@ -170,7 +170,7 @@ const PublicCourseRoute = async ({ params }: { params: Params }) => {
                         <div className="border-b" key={lesson.id}>
                           <div
                             key={lesson.id}
-                            className="px-12 py-2 text-sm sm:text-base "
+                            className="px-12 py-2 text-xs sm:text-sm md:text-base "
                           >
                             {lesson.title}
                           </div>

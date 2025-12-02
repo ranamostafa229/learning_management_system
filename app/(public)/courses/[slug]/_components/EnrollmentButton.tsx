@@ -14,6 +14,7 @@ const EnrollmentButton = ({ courseId }: { courseId: string }) => {
         enrollInCourseAction(courseId)
       );
       if (error) {
+        console.error(error);
         toast.error("Un excpected error occurred. Please try again");
       }
       if (result?.status === "success") {

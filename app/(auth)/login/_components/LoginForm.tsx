@@ -9,9 +9,36 @@ import {
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { GithubIcon, Loader, Loader2, Mail } from "lucide-react";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
+
+export async function signInWithEmail(
+  email: string,
+  redirect: boolean,
+  router: AppRouterInstance,
+  startEmailTransition: (cb: () => Promise<void>) => void
+): Promise<void> {
+  startEmailTransition(async () => {
+    await authClient.emailOtp.sendVerificationOtp({
+      email: email,
+      type: "sign-in",
+      fetchOptions: {
+        onSuccess: () => {
+          toast.success("OTP sent to your email, please check your inbox!");
+          if (redirect) {
+            router.push(`/verify-request?email=${email}`);
+          }
+        },
+        onError: (error) => {
+          console.log(error.error.message);
+          toast.error(`Error sending OTP to email`);
+        },
+      },
+    });
+  });
+}
 
 const LoginForm = () => {
   const [githubPending, startGithubTransition] = useTransition();
@@ -38,24 +65,26 @@ const LoginForm = () => {
       });
     });
   }
-  async function signInWithEmail() {
-    startEmailTransition(async () => {
-      await authClient.emailOtp.sendVerificationOtp({
-        email: email,
-        type: "sign-in",
-        fetchOptions: {
-          onSuccess: () => {
-            toast.success("OTP sent to your email, please check your inbox!");
-            router.push(`/verify-request?email=${email}`);
-          },
-          onError: (error) => {
-            console.log(error.error.message);
-            toast.error(`Error sending OTP to email`);
-          },
-        },
-      });
-    });
-  }
+  //  export async function signInWithEmail(email: string, redirect: boolean = true) {
+  //     startEmailTransition(async () => {
+  //       await authClient.emailOtp.sendVerificationOtp({
+  //         email: email,
+  //         type: "sign-in",
+  //         fetchOptions: {
+  //           onSuccess: () => {
+  //             toast.success("OTP sent to your email, please check your inbox!");
+  //             if (redirect) {
+  //               router.push(`/verify-request?email=${email}`);
+  //             }
+  //           },
+  //           onError: (error) => {
+  //             console.log(error.error.message);
+  //             toast.error(`Error sending OTP to email`);
+  //           },
+  //         },
+  //       });
+  //     });
+  //   }
   return (
     <Card className="rounded-md ">
       <CardHeader className=" w-full text-center text-2xl font-semibold">
@@ -94,7 +123,7 @@ const LoginForm = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              signInWithEmail();
+              signInWithEmail(email, true, router, startEmailTransition);
             }}
           >
             <div className="relative">

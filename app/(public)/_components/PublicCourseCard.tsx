@@ -93,7 +93,7 @@ const PublicCourseCard = ({
         <div className="flex items-center justify-between ">
           <Link
             href={`/courses/${data.slug}`}
-            className="font-medium text-lg line-clamp-2 group-hover:text-primary transition-colors"
+            className="font-medium text-lg line-clamp-2 group-hover:text-primary transition-colors capitalize"
           >
             {data.title}
           </Link>

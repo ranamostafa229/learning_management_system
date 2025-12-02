@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -13,9 +13,12 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { authClient } from "@/lib/auth-client";
+import { ArrowLeftCircle } from "lucide-react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState, useTransition } from "react";
 import { toast } from "sonner";
+import { signInWithEmail } from "../login/_components/LoginForm";
 
 export default function VerifyRequestPage() {
   return (
@@ -28,6 +31,8 @@ const VerifyRequest = () => {
   const router = useRouter();
   const [otp, setOtp] = useState("");
   const [otpPending, startOtpTransition] = useTransition();
+  const [emailPending, startEmailTransition] = useTransition();
+
   const paramas = useSearchParams();
   const email = paramas.get("email") as string;
   const isOTPCompleted = otp.length === 6;
@@ -92,6 +97,28 @@ const VerifyRequest = () => {
           Verify Account
         </Button>
       </CardContent>
+      <div className="flex items-center justify-center text-muted-foreground">
+        <p>Didn&apos;t receive the email?</p>
+        <Button
+          variant={"link"}
+          className="cursor-pointer font-bold"
+          onClick={() =>
+            signInWithEmail(email, false, router, startEmailTransition)
+          }
+          disabled={emailPending}
+        >
+          Resend Email
+        </Button>
+      </div>
+      <Link
+        href={"/login"}
+        className={buttonVariants({
+          variant: "link",
+        })}
+      >
+        <ArrowLeftCircle />
+        Back to login
+      </Link>
     </Card>
   );
 };
