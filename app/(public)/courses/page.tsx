@@ -9,6 +9,7 @@ import { Suspense } from "react";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
+export const revalidate = 60;
 const PublicCoursesRoute = () => {
   return (
     <div className="mt-16 container mx-auto pt-10 px-4 lg:px-0">
