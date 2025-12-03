@@ -79,15 +79,15 @@ const Home = () => {
         <h2 className="text-2xl font-semibold">Our Features</h2>
         <p className="text-muted-foreground">On Cursus, you have access to:</p>
         <Separator className="bg-primary !w-14 !h-1 rounded-sm" />
-        <div className="flex flex-wrap justify-center gap-4 pt-4">
+        <div className="flex flex-wrap justify-center gap-4 pt-4 text-center">
           {featureInfo.map((feature) => (
             <div
-              className="flex flex-col gap-4 items-center"
+              className="flex flex-col gap-5 items-center"
               key={feature.title}
             >
               {feature.icon}
               <h3 className="text-lg font-semibold">{feature.title}</h3>
-              <p className="text-muted-foreground w-96">
+              <p className="text-muted-foreground px-0 lg:px-5 ">
                 {feature.description}
               </p>
             </div>
