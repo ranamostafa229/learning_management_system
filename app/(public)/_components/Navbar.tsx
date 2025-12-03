@@ -8,6 +8,7 @@ import { Session } from "@/lib/auth";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
+import { authClient } from "@/lib/auth-client";
 
 const navigationItems = [
   { name: "Home", href: "/" },
@@ -15,7 +16,10 @@ const navigationItems = [
   { name: "Dashboard", href: "/dashboard" },
   // { name: "About", href: "/about" },
 ];
-const Navbar = ({ session }: { session: Session | null }) => {
+const Navbar = () => {
+  const { data } = authClient.useSession();
+  const session = data?.session;
+
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
 
@@ -75,7 +79,7 @@ const Navbar = ({ session }: { session: Session | null }) => {
               <Link
                 key={item.name}
                 href={
-                  item.href === "/dashboard" && session?.user.role === "admin"
+                  item.href === "/dashboard" && data?.user.role === "admin"
                     ? "/admin"
                     : item.href
                 }

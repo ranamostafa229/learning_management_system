@@ -5,12 +5,9 @@ import { auth } from "@/lib/auth";
 import Footer from "./_components/Footer";
 
 const LayoutShared = async ({ children }: { children: ReactNode }) => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
   return (
     <>
-      <Navbar session={session} />
+      <Navbar />
       <div className="flex flex-col min-h-screen">{children}</div>
       <Footer />
     </>
