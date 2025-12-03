@@ -16,8 +16,7 @@ const navigationItems = [
   // { name: "About", href: "/about" },
 ];
 const Navbar = () => {
-  const { data } = authClient.useSession();
-  const session = data?.session;
+  const { data: session } = authClient.useSession();
 
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
@@ -76,7 +75,7 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 href={
-                  item.href === "/dashboard" && data?.user.role === "admin"
+                  item.href === "/dashboard" && session?.user.role === "admin"
                     ? "/admin"
                     : item.href
                 }
