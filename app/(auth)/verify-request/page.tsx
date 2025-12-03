@@ -97,15 +97,15 @@ const VerifyRequest = () => {
           Verify Account
         </Button>
       </CardContent>
-      <div className="flex items-center justify-center text-muted-foreground">
-        <p>Didn&apos;t receive the email?</p>
+      <div className="flex  items-center justify-center text-muted-foreground">
+        <p className="text-sm md:text-base">Didn&apos;t receive the email?</p>
         <Button
           variant={"link"}
-          className="cursor-pointer font-bold"
+          className="cursor-pointer font-bold text-sm md:text-base"
           onClick={() =>
             signInWithEmail(email, false, router, startEmailTransition)
           }
-          disabled={emailPending}
+          disabled={emailPending || otpPending}
         >
           Resend Email
         </Button>

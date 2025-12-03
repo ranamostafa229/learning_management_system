@@ -14,10 +14,10 @@ const AuthLayout = ({ children }: { children: ReactNode }) => {
         className="absolute top-0 left-0 w-screen h-screen object-cover opacity-5 dark:opacity-20 "
       />
       {/* Content */}
-      <div className="flex flex-col w-full max-w-lg mx-10 md:mx-auto z-10 ">
+      <div className="flex flex-col w-full max-w-lg mx-10 md:mx-auto  z-10 mt-10 sm:mt-0 ">
         <Link
           href="/"
-          className="hidden dark:flex absolute top-24  self-center mr-5 "
+          className="hidden dark:flex absolute top-16  self-center mr-5 "
         >
           <Image
             src={"/logo.svg"}
@@ -29,7 +29,7 @@ const AuthLayout = ({ children }: { children: ReactNode }) => {
         </Link>
         <Link
           href="/"
-          className="flex dark:hidden absolute top-24  self-center mr-5 "
+          className="flex dark:hidden absolute top-16  self-center mr-5 "
         >
           <Image
             src="/logoblack.svg"

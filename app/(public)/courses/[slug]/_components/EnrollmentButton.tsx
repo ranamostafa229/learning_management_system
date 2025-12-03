@@ -14,8 +14,10 @@ const EnrollmentButton = ({ courseId }: { courseId: string }) => {
         enrollInCourseAction(courseId)
       );
       if (error) {
-        console.error(error);
-        toast.error("Un excpected error occurred. Please try again");
+        // error message when the user is not authenticated
+        if (error?.message === "NEXT_REDIRECT")
+          toast.error("Please login first");
+        else toast.error("Un excpected error occurred. Please try again");
       }
       if (result?.status === "success") {
         toast.success(result.message);
