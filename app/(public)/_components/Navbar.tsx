@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import UserDropdown from "./UserDropdown";
 import { ThemeToggle } from "@/components/ui/themeToggle";
-import { Session } from "@/lib/auth";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
@@ -34,9 +33,7 @@ const Navbar = () => {
       className={cn(
         "fixed top-0 w-full z-50 items-center ",
         scrolled &&
-          // pathname !== "/" && //[or] use bg-card
           "dark:bg-gradient-to-b from-secondary to-background/100 dark:shadow-none bg-white shadow-sm "
-        // : scrolled && "dark:bg-card bg-card dark:shadow-none shadow-sm "
       )}
     >
       <div

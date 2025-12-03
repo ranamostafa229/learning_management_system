@@ -1,7 +1,5 @@
 import { ReactNode } from "react";
 import Navbar from "./_components/Navbar";
-import { headers } from "next/headers";
-import { auth } from "@/lib/auth";
 import Footer from "./_components/Footer";
 
 const LayoutShared = async ({ children }: { children: ReactNode }) => {
