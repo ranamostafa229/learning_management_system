@@ -165,15 +165,15 @@ const PublicCourseRoute = async ({ params }: { params: Params }) => {
                     </CardContent>
                   </CollapsibleTrigger>
                   <CollapsibleContent>
-                    <div className="space-y-2 bg-background border-l border-r ">
+                    <div className="bg-background border-l border-r ">
                       {chapter.lessons.map((lesson) => (
-                        <div className="border-b" key={lesson.id}>
-                          <div
-                            key={lesson.id}
-                            className="px-12 py-2 text-xs sm:text-sm md:text-base "
-                          >
+                        <div
+                          className="border-b pb-1 py-0 md:py-2 "
+                          key={lesson.id}
+                        >
+                          <span className="px-12 text-xs sm:text-sm md:text-base ">
                             {lesson.title}
-                          </div>
+                          </span>
                         </div>
                       ))}
                     </div>

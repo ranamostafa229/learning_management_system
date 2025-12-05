@@ -9,9 +9,12 @@ export const CourseHeader = () => {
         <Book size={20} />
         Courses
       </h2>
-      <div className="bg-card flex justify-between items-center p-7">
-        <h1 className="text-2xl flex gap-4 items-center">
-          <Book size={25} className="text-[#686f7a]" />
+      <div
+        className="bg-card flex flex-wrap sm:flex-nowrap gap-5 sm:gap-0  justify-center
+      sm:justify-between items-center p-5 sm:p-7 "
+      >
+        <h1 className="text-lg sm:text-xl md:text-2xl flex gap-4 items-center">
+          <Book size={25} className="text-[#686f7a] flex-shrink-0" />
           Jump Into Course Creation
         </h1>
         <Link
