@@ -65,26 +65,6 @@ const LoginForm = () => {
       });
     });
   }
-  //  export async function signInWithEmail(email: string, redirect: boolean = true) {
-  //     startEmailTransition(async () => {
-  //       await authClient.emailOtp.sendVerificationOtp({
-  //         email: email,
-  //         type: "sign-in",
-  //         fetchOptions: {
-  //           onSuccess: () => {
-  //             toast.success("OTP sent to your email, please check your inbox!");
-  //             if (redirect) {
-  //               router.push(`/verify-request?email=${email}`);
-  //             }
-  //           },
-  //           onError: (error) => {
-  //             console.log(error.error.message);
-  //             toast.error(`Error sending OTP to email`);
-  //           },
-  //         },
-  //       });
-  //     });
-  //   }
   return (
     <Card className="rounded-md ">
       <CardHeader className=" w-full text-center text-2xl font-semibold">
