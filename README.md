@@ -74,6 +74,8 @@ This repository contains a full-featured Learning Management System built with N
 <img width="1891" height="936" alt="Screenshot (1401)" src="https://github.com/user-attachments/assets/d7f4f859-6bd7-4a49-82a5-17e3537cd5d4" />
 <br/>
 <br/>
+
+
 - **Course management:**
   Admin can create, edit, and publish courses, chapters, and lessons.
 
