@@ -94,6 +94,13 @@ This repository contains a full-featured Learning Management System built with N
 <img width="1885" height="929" alt="Screenshot (1406)" src="https://github.com/user-attachments/assets/0124b857-6b5d-4851-a22e-4f02b125427e" />
 <br/>
 <br/>
+
+**Theme (Dark / Light)**
+- Built-in dark and light themes with a user-accessible toggle.
+- Honors system preference on first load and persists selection across sessions.
+- Toggle and provider located at [components/ui/themeToggle.tsx](components/ui/themeToggle.tsx) and [components/ui/theme-provider.tsx](components/ui/theme-provider.tsx).
+
+
 **Project structure**
 
 - **app/** — Next.js App Router pages and layouts.
