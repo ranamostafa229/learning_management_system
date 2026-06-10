@@ -15,20 +15,23 @@ This repository contains a full-featured Learning Management System built with N
 <img width="1920" height="938" alt="Screenshot (1393)" src="https://github.com/user-attachments/assets/e383ce62-9493-4e34-beb5-23e62379bc94" />
 <br/>
 <br/>
-- **Public catalog:** Browse published courses.
+- **Public catalog:**
+  Browse published courses.
 <br/>
 <br/>
 <img width="1920" height="940" alt="Screenshot (1394)" src="https://github.com/user-attachments/assets/2e6f4a1b-c79c-445c-bc18-35a70b7bc91a" />
 <br/>
 <br/>
-- **Course Overview:** Explore course content.
+- **Course Overview:**
+  Explore course content.
 <br/>
 <br/>
 <img width="1885" height="933" alt="Screenshot (1395)" src="https://github.com/user-attachments/assets/0fdcd1cc-8fa5-4561-a4e2-700979197351" />
 <br/>
 <br/>
 
-- **Enrollments & payments:** Stripe integration for paid courses and enrollment records.
+- **Enrollments & payments:**
+  Stripe integration for paid courses and enrollment records.
 <br/>
 <br/>
 <img width="1896" height="940" alt="Screenshot (1396)" src="https://github.com/user-attachments/assets/1fb9fc3f-b0c2-4f32-9bbb-ba233ebf39ee" />
@@ -39,7 +42,8 @@ This repository contains a full-featured Learning Management System built with N
 <br/>
 <br/>
 
-- **Lesson playback & progress:** Lessons with video assets stored in S3 and per-user progress tracking.
+- **Lesson playback & progress:**
+  Lessons with video assets stored in S3 and per-user progress tracking.
 <br/>
 <br/>
 <img width="1889" height="935" alt="Screenshot (1398)" src="https://github.com/user-attachments/assets/e43ca787-d6d5-4d98-93ab-5b0c9d7afbc8" />
@@ -47,7 +51,8 @@ This repository contains a full-featured Learning Management System built with N
 <br/>
 
 
-- **User dashboard:** Saved courses, enrolled courses, and progress overview.
+- **User dashboard:**
+  Saved courses, enrolled courses, and progress overview.
 <br/>
 <br/>
 <img width="1892" height="936" alt="Screenshot (1399)" src="https://github.com/user-attachments/assets/c59ab78c-92ea-429b-a271-1f80d27c6c07" />
@@ -60,12 +65,14 @@ This repository contains a full-featured Learning Management System built with N
 <br/>
 
 
-- **Admin analytics:** Basic admin dashboard with course and enrollment metrics.
+- **Admin analytics:**
+  Basic admin dashboard with course and enrollment metrics.
 
 <img width="1891" height="936" alt="Screenshot (1401)" src="https://github.com/user-attachments/assets/d7f4f859-6bd7-4a49-82a5-17e3537cd5d4" />
 <br/>
 <br/>
-- **Course management:** Admin can create, edit, and publish courses, chapters, and lessons.
+- **Course management:**
+  Admin can create, edit, and publish courses, chapters, and lessons.
 
 <img width="1891" height="927" alt="Screenshot (1402)" src="https://github.com/user-attachments/assets/0b622f59-0406-4dc8-9bc9-66189fd27202" />
 <br/>
