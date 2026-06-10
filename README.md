@@ -23,6 +23,7 @@ This repository contains a full-featured Learning Management System built with N
 <img width="1920" height="940" alt="Screenshot (1394)" src="https://github.com/user-attachments/assets/2e6f4a1b-c79c-445c-bc18-35a70b7bc91a" />
 <br/>
 <br/>
+
 - **Course Overview:**
   Explore course content.
 <br/>
@@ -42,6 +43,7 @@ This repository contains a full-featured Learning Management System built with N
 <img width="1901" height="924" alt="Screenshot (1397)" src="https://github.com/user-attachments/assets/02af88ec-d80e-4279-bf38-b0382117225c" />
 <br/>
 <br/>
+
 
 - **Lesson playback & progress:**
   Lessons with video assets stored in S3 and per-user progress tracking.
