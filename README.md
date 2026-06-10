@@ -16,40 +16,47 @@ This repository contains a full-featured Learning Management System built with N
 <br/>
 <br/>
 - **Public catalog:** Browse published courses.
-
+<br/>
 <br/>
 <img width="1920" height="940" alt="Screenshot (1394)" src="https://github.com/user-attachments/assets/2e6f4a1b-c79c-445c-bc18-35a70b7bc91a" />
-
+<br/>
 <br/>
 - **Course Overview:** Explore course content.
 <br/>
+<br/>
 <img width="1885" height="933" alt="Screenshot (1395)" src="https://github.com/user-attachments/assets/0fdcd1cc-8fa5-4561-a4e2-700979197351" />
+<br/>
 <br/>
 
 - **Enrollments & payments:** Stripe integration for paid courses and enrollment records.
 <br/>
+<br/>
 <img width="1896" height="940" alt="Screenshot (1396)" src="https://github.com/user-attachments/assets/1fb9fc3f-b0c2-4f32-9bbb-ba233ebf39ee" />
-
+<br/>
 <br/>
 
 <img width="1901" height="924" alt="Screenshot (1397)" src="https://github.com/user-attachments/assets/02af88ec-d80e-4279-bf38-b0382117225c" />
 <br/>
-
+<br/>
 
 - **Lesson playback & progress:** Lessons with video assets stored in S3 and per-user progress tracking.
 <br/>
+<br/>
 <img width="1889" height="935" alt="Screenshot (1398)" src="https://github.com/user-attachments/assets/e43ca787-d6d5-4d98-93ab-5b0c9d7afbc8" />
+<br/>
 <br/>
 
 
 - **User dashboard:** Saved courses, enrolled courses, and progress overview.
 <br/>
+<br/>
 <img width="1892" height="936" alt="Screenshot (1399)" src="https://github.com/user-attachments/assets/c59ab78c-92ea-429b-a271-1f80d27c6c07" />
+<br/>
 <br/>
 
 
 <img width="1895" height="922" alt="Screenshot (1400)" src="https://github.com/user-attachments/assets/d5f89c94-a493-432d-a804-5c2463b5a386" />
-
+<br/>
 <br/>
 
 
@@ -57,20 +64,24 @@ This repository contains a full-featured Learning Management System built with N
 
 <img width="1891" height="936" alt="Screenshot (1401)" src="https://github.com/user-attachments/assets/d7f4f859-6bd7-4a49-82a5-17e3537cd5d4" />
 <br/>
-
+<br/>
 - **Course management:** Admin can create, edit, and publish courses, chapters, and lessons.
 
 <img width="1891" height="927" alt="Screenshot (1402)" src="https://github.com/user-attachments/assets/0b622f59-0406-4dc8-9bc9-66189fd27202" />
 <br/>
+<br/>
 <img width="1883" height="943" alt="Screenshot (1403)" src="https://github.com/user-attachments/assets/7783a801-9a30-4c0c-b8d8-3124209b65d3" />
+<br/>
 <br/>
 <img width="1898" height="928" alt="Screenshot (1404)" src="https://github.com/user-attachments/assets/62bafcb4-876a-4397-a201-d815b78e000b" />
 <br/>
+<br/>
 <img width="1889" height="927" alt="Screenshot (1405)" src="https://github.com/user-attachments/assets/9c8ddd76-e4ac-4374-a54e-28595c7cf222" />
 <br/>
+<br/>
 <img width="1885" height="929" alt="Screenshot (1406)" src="https://github.com/user-attachments/assets/0124b857-6b5d-4851-a22e-4f02b125427e" />
-
-
+<br/>
+<br/>
 **Project structure**
 
 - **app/** — Next.js App Router pages and layouts.
