@@ -104,7 +104,7 @@ This repository contains a full-featured Learning Management System built with N
 
 
 
-####Project structure####
+#### Project structure
 
 - **app/** — Next.js App Router pages and layouts.
 	- `app/(auth)/` — Authentication pages (login, verify, public flows).
