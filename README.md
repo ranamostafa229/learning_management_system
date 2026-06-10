@@ -1,24 +1,23 @@
+
 # Learning Management System (LMS)
 
 This repository contains a full-featured Learning Management System built with Next.js (App Router), TypeScript, Prisma, Better-Auth, and modern React. It provides course publishing, enrollment, lesson progress tracking, user authentication (email OTP and GitHub social sign-in), an admin dashboard, and S3-backed media storage.
 
-**Quick start**
-
-```bash
-pnpm install
-pnpm dev
-```
-
-Open http://localhost:3000 in your browser.
-
-**Note:** Ensure required environment variables are present (`DATABASE_URL`, `BETTER_AUTH_SECRET`, `AUTH_GITHUB_CLIENT_ID`, `AUTH_GITHUB_CLIENT_SECRET`, `RESEND_API_KEY`, AWS credentials, Stripe keys). See `lib/env.ts` for required keys.
+<img width="1900" height="944" alt="Screenshot (1391)" src="https://github.com/user-attachments/assets/0f7849d9-5835-4390-9724-1d4a810f9c53" />
 
 **Features**
-- **Authentication:** Email OTP and GitHub social sign-in using `better-auth` with a Prisma adapter.
-- **Public catalog:** Browse published courses with search and filters.
+- **Authentication:**
+  Email OTP and GitHub social sign-in using `better-auth` with a Prisma adapter.
+  <img width="1920" height="936" alt="Screenshot (1392)" src="https://github.com/user-attachments/assets/19ac2599-24d5-4c7d-9c4d-47cb258e4ed4" />
+  <img width="1920" height="938" alt="Screenshot (1393)" src="https://github.com/user-attachments/assets/e383ce62-9493-4e34-beb5-23e62379bc94" />
+
+- **Public catalog:** Browse published courses.
+  <img width="1920" height="940" alt="Screenshot (1394)" src="https://github.com/user-attachments/assets/2e6f4a1b-c79c-445c-bc18-35a70b7bc91a" />
+
 - **Course management:** Admin can create, edit, and publish courses, chapters, and lessons.
 - **Lesson playback & progress:** Lessons with video assets stored in S3 and per-user progress tracking.
 - **Enrollments & payments:** Stripe integration for paid courses and enrollment records.
+  
 - **User dashboard:** Saved courses, enrolled courses, and progress overview.
 - **Admin analytics:** Basic admin dashboard with course and enrollment metrics.
 
@@ -70,6 +69,17 @@ Screenshots (replace with real images):
 - **public/** — Static assets. Put screenshots in `public/screenshots/`.
 
 - **components/ui** — Design system primitives (button, input, modal, table, etc.).
+
+**Quick start**
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Open http://localhost:3000 in your browser.
+
+**Note:** Ensure required environment variables are present (`DATABASE_URL`, `BETTER_AUTH_SECRET`, `AUTH_GITHUB_CLIENT_ID`, `AUTH_GITHUB_CLIENT_SECRET`, `RESEND_API_KEY`, AWS credentials, Stripe keys). See `lib/env.ts` for required keys.
 
 **Environment & secrets**
 Copy `.env.example` (if available) and set the following (minimum):
