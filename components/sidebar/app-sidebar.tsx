@@ -136,9 +136,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenu className="!flex">
           <SidebarMenuItem className="flex">
-            {/* <div className="bg-primary w-fit">
-              <SidebarTrigger className="" />
-            </div> */}
             <SidebarMenuButton
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5 hover:bg-transparent"

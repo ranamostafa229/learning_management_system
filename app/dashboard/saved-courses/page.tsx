@@ -15,13 +15,13 @@ const SavedCourses = async () => {
     <section
       className={cn(
         "flex flex-wrap lg:flex-nowrap gap-4",
-        courses.length === 0 && "flex flex-col"
+        courses.length === 0 && "flex flex-col",
       )}
     >
       <div
         className={cn(
           "w-full lg:w-96 flex flex-col gap-4 ",
-          courses.length === 0 && "lg:w-full"
+          courses.length === 0 && "lg:w-full",
         )}
       >
         <div className="flex justify-between">
