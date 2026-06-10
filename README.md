@@ -5,7 +5,7 @@ This repository contains a full-featured Learning Management System built with N
 
 <img width="1900" height="944" alt="Screenshot (1391)" src="https://github.com/user-attachments/assets/0f7849d9-5835-4390-9724-1d4a810f9c53" />
 
-**Features**
+### Features 
 - **Authentication:**
   Email OTP and GitHub social sign-in using `better-auth` with a Prisma adapter.
 
@@ -104,7 +104,7 @@ This repository contains a full-featured Learning Management System built with N
 
 
 
-#### Project structure
+### Project structure
 
 - **app/** — Next.js App Router pages and layouts.
 	- `app/(auth)/` — Authentication pages (login, verify, public flows).
