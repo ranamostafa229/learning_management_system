@@ -131,7 +131,7 @@ This repository contains a full-featured Learning Management System built with N
 
 - **components/ui** — Design system primitives (button, input, modal, table, etc.).
 
-**Quick start**
+### Quick start
 
 ```bash
 pnpm install
@@ -140,9 +140,9 @@ pnpm dev
 
 Open http://localhost:3000 in your browser.
 
-**Note:** Ensure required environment variables are present (`DATABASE_URL`, `BETTER_AUTH_SECRET`, `AUTH_GITHUB_CLIENT_ID`, `AUTH_GITHUB_CLIENT_SECRET`, `RESEND_API_KEY`, AWS credentials, Stripe keys). See `lib/env.ts` for required keys.
+**Note:** Ensure required environment variables are present (`DATABASE_URL`, `BETTER_AUTH_SECRET`, `AUTH_GITHUB_CLIENT_ID`, `AUTH_GITHUB_CLIENT_SECRET`, `RESEND_API_KEY`, AWS credentials, Stripe keys).
 
-**Environment & secrets**
+### Environment & secrets
 Copy `.env.example` (if available) and set the following (minimum):
 
 - `DATABASE_URL` — Postgres connection string.
@@ -158,7 +158,7 @@ Copy `.env.example` (if available) and set the following (minimum):
 
 ---
 
-**Demo**
+### Demo
 
 - Live demo: Add your hosted demo URL here (https://learning-management-system-pi-one.vercel.app/).
 - Local demo: to run a local demo build, ensure env vars are set, then run migrations and start the app:
