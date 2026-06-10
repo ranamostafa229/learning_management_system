@@ -11,31 +11,45 @@ This repository contains a full-featured Learning Management System built with N
 
 <img width="1920" height="936" alt="Screenshot (1392)" src="https://github.com/user-attachments/assets/19ac2599-24d5-4c7d-9c4d-47cb258e4ed4" />
 
+
 <img width="1920" height="938" alt="Screenshot (1393)" src="https://github.com/user-attachments/assets/e383ce62-9493-4e34-beb5-23e62379bc94" />
 
 - **Public catalog:** Browse published courses.
 
+
 <img width="1920" height="940" alt="Screenshot (1394)" src="https://github.com/user-attachments/assets/2e6f4a1b-c79c-445c-bc18-35a70b7bc91a" />
+
 
 - **Course Overview:** Explore course content.
 
 <img width="1885" height="933" alt="Screenshot (1395)" src="https://github.com/user-attachments/assets/0fdcd1cc-8fa5-4561-a4e2-700979197351" />
 
+
 - **Enrollments & payments:** Stripe integration for paid courses and enrollment records.
 
 <img width="1896" height="940" alt="Screenshot (1396)" src="https://github.com/user-attachments/assets/1fb9fc3f-b0c2-4f32-9bbb-ba233ebf39ee" />
 
+
+
 <img width="1901" height="924" alt="Screenshot (1397)" src="https://github.com/user-attachments/assets/02af88ec-d80e-4279-bf38-b0382117225c" />
+
+
 
 - **Lesson playback & progress:** Lessons with video assets stored in S3 and per-user progress tracking.
 
 <img width="1889" height="935" alt="Screenshot (1398)" src="https://github.com/user-attachments/assets/e43ca787-d6d5-4d98-93ab-5b0c9d7afbc8" />
 
+
+
 - **User dashboard:** Saved courses, enrolled courses, and progress overview.
 
 <img width="1892" height="936" alt="Screenshot (1399)" src="https://github.com/user-attachments/assets/c59ab78c-92ea-429b-a271-1f80d27c6c07" />
 
+
+
 <img width="1895" height="922" alt="Screenshot (1400)" src="https://github.com/user-attachments/assets/d5f89c94-a493-432d-a804-5c2463b5a386" />
+
+
 
 
 - **Admin analytics:** Basic admin dashboard with course and enrollment metrics.
