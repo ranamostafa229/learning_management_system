@@ -138,7 +138,7 @@ Copy `.env.example` (if available) and set the following (minimum):
 
 **Demo**
 
-- Live demo: Add your hosted demo URL here (e.g. https://demo.example.com).
+- Live demo: Add your hosted demo URL here (https://learning-management-system-pi-one.vercel.app/).
 - Local demo: to run a local demo build, ensure env vars are set, then run migrations and start the app:
 
 ```bash
