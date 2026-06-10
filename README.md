@@ -15,6 +15,7 @@ This repository contains a full-featured Learning Management System built with N
 <img width="1920" height="938" alt="Screenshot (1393)" src="https://github.com/user-attachments/assets/e383ce62-9493-4e34-beb5-23e62379bc94" />
 <br/>
 <br/>
+
 - **Public catalog:**
   Browse published courses.
 <br/>
