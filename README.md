@@ -100,6 +100,7 @@ This repository contains a full-featured Learning Management System built with N
 - Honors system preference on first load and persists selection across sessions.
 - Toggle and provider located at [components/ui/themeToggle.tsx](components/ui/themeToggle.tsx) and [components/ui/theme-provider.tsx](components/ui/theme-provider.tsx).
 
+<img width="1893" height="940" alt="Screenshot (1407)" src="https://github.com/user-attachments/assets/eb00449b-0275-40c7-8397-19f81db1f4ca" />
 
 **Project structure**
 
